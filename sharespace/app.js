@@ -5,6 +5,9 @@ var app = express();
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 
+// Specify static folder (public directory) of client
+app.use(express.static(__dirname+'/client'));
+
 // Middleware to initialize the bodyParser
 app.use(bodyParser.json());
 
@@ -81,3 +84,4 @@ app.delete('/api/posts/:_id', function(req, res){
 // Port to listen
 app.listen(3000);
 console.log('Running on port 3000');
+
