@@ -1,4 +1,3 @@
-
 // Create app object with angular route dependency ([] is mandatory)
 var myApp = angular.module('myApp', ['ngRoute']);
 
@@ -8,16 +7,12 @@ myApp.config(function($routeProvider){
 	$routeProvider.when('/', {
 		// Specify which controller we want to use when the user goes to this route
 		controller: 'PostsController',
-		// Specify which template will be used when the user goes to this route
+		// Specify which template url will be used when the user goes to this route
 		templateUrl: 'views/posts.html'
 	})
 	.when('/posts', {
 		controller: 'PostsController',
 		templateUrl: 'views/posts.html'
-	})
-	.when('/posts/details/:id', {
-		controller: 'PostsController',
-		templateUrl: 'views/post_details.html'
 	})
 	.when('/posts/add', {
 		controller: 'PostsController',
