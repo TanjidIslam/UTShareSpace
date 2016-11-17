@@ -10,6 +10,9 @@ var postSchema = mongoose.Schema({
 	description:{
 		type: String,
 		required: true
+	},
+	video_url:{
+		type: String
 	}
 // To prevent of adding version key
 });

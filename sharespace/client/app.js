@@ -1,6 +1,6 @@
 // Create app object with angular route dependency ([] is mandatory)
 // ngRoute comes from the Angular Route file we installed
-var myApp = angular.module('myApp', ['ngRoute']);
+var myApp = angular.module('myApp', ['ngRoute', 'videosharing-embed']);
 
 // Setting up all te routes
 myApp.config(function($routeProvider){
