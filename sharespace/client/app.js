@@ -1,4 +1,5 @@
 // Create app object with angular route dependency ([] is mandatory)
+// ngRoute comes from the Angular Route file we installed
 var myApp = angular.module('myApp', ['ngRoute']);
 
 // Setting up all te routes
@@ -13,6 +14,10 @@ myApp.config(function($routeProvider){
 	.when('/posts', {
 		controller: 'PostsController',
 		templateUrl: 'views/posts.html'
+	})
+	.when('/posts/details/:id', {
+		controller: 'PostsController',
+		templateUrl: 'views/post_details.html'
 	})
 	.when('/posts/add', {
 		controller: 'PostsController',
