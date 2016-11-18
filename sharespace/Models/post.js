@@ -15,7 +15,7 @@ var postSchema = mongoose.Schema({
 		type: String
 	},
 	code:{
-		type: [String]
+		type: String
 	}
 // To prevent of adding version key
 });

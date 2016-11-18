@@ -11,21 +11,21 @@
         <form ng-submit="addPost()">
           <div class="form-group">
             <label>Title</label>
-            <input type="text" class="form-control" ng-model="post.title" placeholder="Title">
+            <input type="text" class="form-control" ng-model="post.title" placeholder="Title" required>
           </div>
           <div class="form-group">
             <label>Description</label>
-            <input type="text" class="form-control" ng-model="post.description" placeholder="Description">
+            <textarea rows="6" class="form-control" ng-model="post.description" placeholder="Description" required/>
           </div>
           <div class="form-group">
-            <label>Video URL (optional)</label>
+            <label>Video URL</label>
             <input type="url" class="form-control" ng-model="post.video_url" placeholder="Video URL">
           </div>
           <div class="form-group">
-            <label>Code (optional)</label>
+            <label>Code</label>
             <textarea rows="6" class="form-control" ng-model="post.code" placeholder="Code"/>
           </div>
-          <button type="submit" class="btn btn-default">Submit</button>
+          <button type="submit" class="btn btn-primary">Submit</button>
         </form>
       </div>
     </div>
