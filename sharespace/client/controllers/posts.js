@@ -41,7 +41,7 @@ myApp.controller('PostsController', ['$scope', '$http', '$location', '$routePara
 		// Second parameter is what we want to edit
 		$http.put('/api/posts/' + id, $scope.post).success(function(response){
 			// Redirect
-			window.location.href='#/posts';
+			window.location.href='#/posts/details/' + id;
 		});
 	}
 		// Scope function that deletes a post

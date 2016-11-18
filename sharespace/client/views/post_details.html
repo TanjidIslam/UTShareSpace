@@ -1,0 +1,19 @@
+<a href="#/posts">Go Back</a>
+<div class="pull-right">
+	<a href="#/posts/edit/{{post._id}}">Edit</a> | <a href="#" ng-click="removePost(post._id)">Delete</a>
+</div>
+<!-- Bootstrap panel -->
+<!-- ng-init directive tells the page which function to run -->
+<div class="panel panel-default" ng-init="getPost()">
+  <div class="panel-heading">
+  	<h3 class="panel-title">{{post.title}}</h3>
+  </div>
+  <div class="panel-body">
+  	<div class="row">
+  		<div class="col-lg-12">
+      		<p>{{post.description}}</p>
+          <embed-video href="{{post.video_url}}" width="500" height="300"></embed-video>
+		</div>
+    </div>
+  </div>
+</div>

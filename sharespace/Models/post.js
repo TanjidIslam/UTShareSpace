@@ -11,14 +11,9 @@ var postSchema = mongoose.Schema({
 		type: String,
 		required: true
 	},
-	keywords:{
-		type: String,
-		required: true
-	},
-	file:{
-		type: String,
-		required: true
-	},
+	video_url:{
+		type: String
+	}
 // To prevent of adding version key
 });
 
