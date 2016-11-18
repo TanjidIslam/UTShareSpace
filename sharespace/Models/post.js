@@ -13,6 +13,9 @@ var postSchema = mongoose.Schema({
 	},
 	video_url:{
 		type: String
+	},
+	code:{
+		type: [String]
 	}
 // To prevent of adding version key
 });
@@ -41,8 +44,8 @@ module.exports.updatePost = function(id, post, options, callback){
 	var update = {
 		title: post.title,
 		description: post.description,
-		keywords: post.keywords,
-		file: post.file
+		video_url: post.video_url,
+		code: post.code
 	}
 	Post.findOneAndUpdate(query, update, options, callback);
 }
