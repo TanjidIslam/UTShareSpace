@@ -20,7 +20,7 @@
           <p><pre><code><span ng-bind="post.code"></span></pre></code></p>
         </div>
         <div>
-          <button ng-class="{'btn-success': button_color, 'btn-danger': !button_color}" ng-click="click_btn()" type="button" class="btn center-block custom">{{vote_status}}</button>
+          <button ng-class="{'btn-success': button_color, 'btn-danger': !button_color}" ng-click="click_btn(); updatePost()" type="button" class="btn center-block custom">{{vote_status}}</button>
         </div>
       </div>
     </div>
