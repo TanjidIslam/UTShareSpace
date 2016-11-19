@@ -6,3 +6,22 @@
 .post_glyphicon {
     display: inline;
 }
+
+h3.panel-title {
+    font-size: 20px;
+}
+
+.panel-heading {
+	height: 43px;
+}
+
+#votes {
+	float: right;
+}
+
+.custom {
+    padding: 10px 20px;
+    font-size: 25px;
+    border-radius: 10px;
+    width: 30%;  
+}

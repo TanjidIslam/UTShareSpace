@@ -6,7 +6,6 @@ var myApp = angular.module('myApp');
 // 3. $location deals with redirection
 // 4. $routeParams allow us to get variables and values from forms
 myApp.controller('PostsController', ['$scope', '$http', '$location', '$routeParams', function($scope, $http, $location, $routeParams){
-	console.log('PostsController loaded...');
 	// Scope function to get the posts
 	$scope.getPosts = function(){
 		// GET request to get all the posts
