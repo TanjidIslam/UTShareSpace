@@ -49,7 +49,8 @@ module.exports.updatePost = function(id, post, options, callback){
 		title: post.title,
 		description: post.description,
 		video_url: post.video_url,
-		code: post.code
+		code: post.code,
+		votes: post.votes
 	}
 	Post.findOneAndUpdate(query, update, options, callback);
 }
