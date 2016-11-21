@@ -1,5 +1,5 @@
 <!-- Bootstrap panel -->
-<a href="#/posts">Go Back</a>
+<span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<a href="#/posts">Go Back</a>
 <div class="panel panel-default">
   <div class="panel-heading">
     <h3 class="panel-title">Add Post</h3>
@@ -11,7 +11,7 @@
         <form ng-submit="addPost()">
           <div class="form-group">
             <label>Title</label>
-            <input type="text" class="form-control" ng-model="post.title" placeholder="Title" required>
+            <input type="text" class="form-control" ng-model="post.title" placeholder="Title" maxlength="70" required>
           </div>
           <div class="form-group">
             <label>Description</label>
