@@ -21,8 +21,10 @@ var postSchema = mongoose.Schema({
 		type: Number,
 		default: 0
 	}
-// To prevent of adding version key
-});
+// timestamps will create a createdAt and updatedAt variables within database
+}, {timestamps: true}
+
+);
 
 // How we make Post object accessible from outside (module.exports)
 var Post = module.exports = mongoose.model('Post', postSchema);

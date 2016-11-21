@@ -9,13 +9,11 @@
       <!-- For each post in posts (for loop) -->
     	<div ng-repeat="post in posts">
         <div class="col-lg-12">
-          <div style="clear: both">
-            <div id="containerIntro">
-    			    <h4 id="post_title"><a href="#/posts/details/{{post._id}}">{{post.title}}</a></h4>
-              <p class="post_glyphicon" ng-show="post.video_url">&nbsp;<span class="glyphicon glyphicon-film"></span></p>
-              <p class="post_glyphicon" ng-show="post.code">&nbsp;<span class="glyphicon glyphicon-console"></span></p>
-           </div>
-          </div>
+          <h4 id="post_title"><a href="#/posts/details/{{post._id}}">{{post.title}}</a></h4>
+          <p id="dates" ng-show="{{post.createdAt == post.updatedAt}}">Added&nbsp;<mydate>{{post.createdAt | date: 'medium'}}</mydate>&nbsp;<span class="glyphicon glyphicon-plus"></span></p>
+          <p id="dates" ng-show="{{post.createdAt != post.updatedAt}}">Updated&nbsp;<mydate>{{post.updatedAt | date: 'medium'}}</mydate>&nbsp;<span class="glyphicon glyphicon-time"></span></p>
+          <p class="post_glyphicon" ng-show="post.video_url">&nbsp;<span class="glyphicon glyphicon-film"></span></p>
+          <p class="post_glyphicon" ng-show="post.code">&nbsp;<span class="glyphicon glyphicon-console"></span></p>
     			<p>{{post.description}}</p>
     		</div>
     	</div>

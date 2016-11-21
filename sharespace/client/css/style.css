@@ -25,3 +25,13 @@ h3.panel-title {
     border-radius: 10px;
     width: 30%;  
 }
+
+#dates {
+    float: right;
+    font-size: 14px;
+    font-weight: normal;
+}
+
+.panel-body  {
+    word-break: break-all;
+}
