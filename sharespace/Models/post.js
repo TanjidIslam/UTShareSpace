@@ -20,6 +20,9 @@ var postSchema = mongoose.Schema({
 	votes:{
 		type: Number,
 		default: 0
+	},
+	image_path:{
+		type: String
 	}
 // timestamps will create a createdAt and updatedAt variables within database
 }, {timestamps: true}
