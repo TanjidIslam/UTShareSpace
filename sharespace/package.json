@@ -9,7 +9,8 @@
   "dependencies":{
   	"express": "*",
   	"body-parser": "*",
-  	"mongoose": "*"
+  	"mongoose": "*",
+    "multer": "*"
   },
   "author": "Anastasios Exacoustos Tanjid Islam",
   "license": "ISC"

@@ -35,3 +35,7 @@ h3.panel-title {
 .panel-body  {
     word-break: break-all;
 }
+
+#upload_button {
+    margin-top: 10px;
+}

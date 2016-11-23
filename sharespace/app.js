@@ -4,6 +4,18 @@ var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
+var multer  = require('multer');
+
+// Define destination and file of file storafe and store it in upload
+var storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, './uploads/');
+    },
+    filename: function (req, file, cb) {
+        cb(null, file.originalname+ '-' + Date.now()+'.jpg');
+    }
+});
+var upload = multer({ storage: storage });
 
 // Specify static folder (public directory) of client
 app.use(express.static(__dirname+'/client'));
@@ -79,6 +91,10 @@ app.delete('/api/posts/:_id', function(req, res){
 		}
 		res.json(post);
 	});
+});
+
+app.post('/api/multer', upload.single('file'), function(req, res){
+	res.json(req.file);
 });
 
 // Port to listen
