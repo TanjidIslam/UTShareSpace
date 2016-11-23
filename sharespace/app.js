@@ -6,15 +6,19 @@ var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var multer  = require('multer');
 
-// Define destination and file of file storafe and store it in upload
+// Define storage specifications for images
 var storage = multer.diskStorage({
+	// Create destination that the image will go
     destination: function (req, file, cb) {
         cb(null, './uploads/');
     },
+    // Generate random number to assign at images
     filename: function (req, file, cb) {
-        cb(null, file.originalname+ '-' + Date.now()+'.jpg');
+        cb(null, (Math.floor(Math.random() * 1000) + 1) + file.originalname);
     }
 });
+
+// Assign storage specifications
 var upload = multer({ storage: storage });
 
 // Specify static folder (public directory) of client
@@ -93,8 +97,9 @@ app.delete('/api/posts/:_id', function(req, res){
 	});
 });
 
-app.post('/api/multer', upload.single('file'), function(req, res){
-	res.json(req.file);
+// Upload image(s)
+app.post('/api/multer',  upload.any(), function(req, res){
+	res.json(req.files);
 });
 
 // Port to listen
