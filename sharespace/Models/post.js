@@ -21,8 +21,8 @@ var postSchema = mongoose.Schema({
 		type: Number,
 		default: 0
 	},
-	image_path:{
-		type: String
+	image_paths:{
+		type: [String]
 	}
 // timestamps will create a createdAt and updatedAt variables within database
 }, {timestamps: true}
