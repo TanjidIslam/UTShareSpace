@@ -10,7 +10,7 @@ var multer  = require('multer');
 var storage = multer.diskStorage({
 	// Create destination that the image will go
     destination: function (req, file, cb) {
-        cb(null, './uploads/');
+        cb(null, 'client/uploads/');
     },
     // Generate random number to assign at images
     filename: function (req, file, cb) {
@@ -22,7 +22,7 @@ var storage = multer.diskStorage({
 var upload = multer({ storage: storage });
 
 // Specify static folder (public directory) of client
-app.use(express.static(__dirname+'/client'));
+app.use(express.static(__dirname + '/client'));
 
 // Middleware to initialize the bodyParser
 app.use(bodyParser.json());
@@ -99,7 +99,9 @@ app.delete('/api/posts/:_id', function(req, res){
 
 // Upload image(s)
 app.post('/api/multer',  upload.any(), function(req, res){
-	res.json(req.files);
+	// Get and respond with path
+	var path = req.files[0].path.slice(6);
+	res.json(path);
 });
 
 // Port to listen

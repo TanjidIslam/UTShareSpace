@@ -19,6 +19,9 @@
         <div ng-show="post.code">
           <p><pre><code><span ng-bind="post.code"></span></pre></code></p>
         </div>
+        <div ng-repeat="pic in post.image_paths">
+          <img id="images" ng-src="{{pic}}">
+        </div>
         <div>
           <button ng-class="{'btn-success': button_color, 'btn-danger': !button_color}" ng-click="click_btn(); updatePost()" type="button" class="btn center-block custom">{{vote_status}}</button>
         </div>

@@ -39,3 +39,9 @@ h3.panel-title {
 #upload_button_images {
     margin-top: 10px;
 }
+
+#images {
+    width: 80px;
+    height: 80px;
+    margin-bottom: 5px;
+}
