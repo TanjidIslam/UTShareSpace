@@ -20,9 +20,14 @@ var postSchema = mongoose.Schema({
 	votes:{
 		type: Number,
 		default: 0
+	},
+	image_paths:{
+		type: [String]
 	}
-// To prevent of adding version key
-});
+// timestamps will create a createdAt and updatedAt variables within database
+}, {timestamps: true}
+
+);
 
 // How we make Post object accessible from outside (module.exports)
 var Post = module.exports = mongoose.model('Post', postSchema);
@@ -49,7 +54,8 @@ module.exports.updatePost = function(id, post, options, callback){
 		title: post.title,
 		description: post.description,
 		video_url: post.video_url,
-		code: post.code
+		code: post.code,
+		votes: post.votes
 	}
 	Post.findOneAndUpdate(query, update, options, callback);
 }

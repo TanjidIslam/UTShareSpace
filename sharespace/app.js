@@ -4,9 +4,26 @@ var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
+var multer  = require('multer');
+var del = require('del');
+
+// Define storage specifications for images
+var storage = multer.diskStorage({
+	// Create destination that the image will go
+    destination: function (req, file, cb) {
+        cb(null, 'client/uploads/');
+    },
+    // Generate random number to assign at images
+    filename: function (req, file, cb) {
+        cb(null, (Math.floor(Math.random() * 1000) + 1) + file.originalname);
+    }
+});
+
+// Assign storage specifications
+var upload = multer({ storage: storage });
 
 // Specify static folder (public directory) of client
-app.use(express.static(__dirname+'/client'));
+app.use(express.static(__dirname + '/client'));
 
 // Middleware to initialize the bodyParser
 app.use(bodyParser.json());
@@ -79,6 +96,24 @@ app.delete('/api/posts/:_id', function(req, res){
 		}
 		res.json(post);
 	});
+});
+
+// Upload image(s)
+app.post('/api/multer',  upload.any(), function(req, res){
+	// Get and respond with path
+	var path = req.files[0].path.slice(6);
+	res.json(path);
+});
+
+// Delete image(s)
+app.put('/api/multer', function(req, res){
+	// Get paths through body parser
+	var paths = req.body;
+	// For each path, delete corresponding image
+	for (i = 0; i < paths.length; i++) {
+		del(['client' + paths[i]]);
+	}
+	res.json(paths);
 });
 
 // Port to listen

@@ -1,6 +1,6 @@
-<a href="#/posts">Go Back</a>
+<span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<a href="#/posts">Go Back</a>
 <div class="pull-right">
-	<a href="#/posts/edit/{{post._id}}">Edit</a> | <a href="#" ng-click="removePost(post._id)">Delete</a>
+	<a href="#/posts/edit/{{post._id}}">Edit</a>&nbsp;<span class="glyphicon glyphicon-pencil"></span> &nbsp;|&nbsp; <a href="#" ng-click="removePost(post._id, post.image_paths)">Delete</a>&nbsp;<span class="glyphicon glyphicon-trash"></span>
 </div>
 <!-- Bootstrap panel -->
 <!-- ng-init directive tells the page which function to run -->
@@ -19,8 +19,11 @@
         <div ng-show="post.code">
           <p><pre><code><span ng-bind="post.code"></span></pre></code></p>
         </div>
+        <div ng-repeat="pic in post.image_paths">
+          <img id="images" ng-src="{{pic}}">
+        </div>
         <div>
-          <button ng-class="{'btn-success': button_color, 'btn-danger': !button_color}" ng-click="click_btn()" type="button" class="btn center-block custom">{{vote_status}}</button>
+          <button ng-class="{'btn-success': button_color, 'btn-danger': !button_color}" ng-click="click_btn(); updatePost()" type="button" class="btn center-block custom">{{vote_status}}</button>
         </div>
       </div>
     </div>
