@@ -14,6 +14,7 @@
           <p id="dates" ng-show="{{post.createdAt != post.updatedAt}}">Updated&nbsp;<mydate>{{post.updatedAt | date: 'medium'}}</mydate>&nbsp;<span class="glyphicon glyphicon-time"></span></p>
           <p class="post_glyphicon" ng-show="post.video_url">&nbsp;<span class="glyphicon glyphicon-film"></span></p>
           <p class="post_glyphicon" ng-show="post.code">&nbsp;<span class="glyphicon glyphicon-console"></span></p>
+          <p class="post_glyphicon" ng-show="{{post.image_paths}}.length != 0">&nbsp;<span class="glyphicon glyphicon-picture"></span></p>
     			<p>{{post.description}}</p>
     		</div>
     	</div>
