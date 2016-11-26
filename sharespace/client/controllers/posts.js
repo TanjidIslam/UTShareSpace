@@ -28,24 +28,32 @@ myApp.controller('PostsController', ['$scope', '$http', '$location', '$routePara
 
 		// Define image paths
 		$scope.post.image_paths = [];
-		// Assign length of files to a variable for later use
-		var amount_files = $scope.myFile.length;
-		// For each file in files
-		for (i = 0; i < $scope.myFile.length; i++) {
-			// Assign file, create data and append it
-			var file = $scope.myFile[i]
-			var fd = new FormData;
-			fd.append('file', file);
-			// Upload file
-			$http.post('/api/multer', fd, {transformRequest: angular.identity, headers: {'Content-Type': undefined}}).success(function(response){
-				// Get image path as response and push it to paths
-				$scope.post.image_paths.push(response);
-				// Check if we have uploaded all images
-				if (amount_files == $scope.post.image_paths.length) {
-					// If we have, POST request to create a post containing all image paths
-					$http.post('/api/posts', $scope.post).success(function(response){window.location.href='#/posts'});
-				}
-			});
+
+		// If there are images to upload
+		if ($scope.myFile){
+			// Assign length of files to a variable for later use
+			var amount_files = $scope.myFile.length;
+			// For each file in files
+			for (i = 0; i < $scope.myFile.length; i++) {
+				// Assign file, create data and append it
+				var file = $scope.myFile[i]
+				var fd = new FormData;
+				fd.append('file', file);
+
+				// Upload file
+				$http.post('/api/multer', fd, {transformRequest: angular.identity, headers: {'Content-Type': undefined}}).success(function(response){
+					// Get image path as response and push it to paths
+					$scope.post.image_paths.push(response);
+					// Check if we have uploaded all images
+					if (amount_files == $scope.post.image_paths.length) {
+						// If we have, POST request to create a post containing all image paths
+						$http.post('/api/posts', $scope.post).success(function(response){window.location.href='#/posts'});
+					}
+				});
+			}
+		// If there are not images to upload
+		} else {
+			$http.post('/api/posts', $scope.post).success(function(response){window.location.href='#/posts'});
 		}
 	}
 
@@ -65,12 +73,14 @@ myApp.controller('PostsController', ['$scope', '$http', '$location', '$routePara
 	$scope.removePost = function(id, paths){
 
 		// Delete images in these paths
-		$http.put('/api/multer', paths).success(function(response));
-
-		// DELETE request to delete a post
-		$http.delete('/api/posts/' + id).success(function(response){
-			// Redirect
-			window.location.href='#/posts';
+		$http.put('/api/multer', paths).success(function(response){
+			// DELETE request to delete a post
+			$http.delete('/api/posts/' + id).success(function(response){
+				// Redirect
+				window.location.href='#/posts';
+			});
 		});
+
+
 	}
 }]);
