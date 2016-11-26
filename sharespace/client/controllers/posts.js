@@ -62,8 +62,12 @@ myApp.controller('PostsController', ['$scope', '$http', '$location', '$routePara
 	}
 		// Scope function that deletes a post
 		// We are not getting id from url. This time we are getting it from parameter.
-	$scope.removePost = function(id){
-		// DELETE request to edit a post
+	$scope.removePost = function(id, paths){
+
+		// Delete images in these paths
+		$http.put('/api/multer', paths).success(function(response));
+
+		// DELETE request to delete a post
 		$http.delete('/api/posts/' + id).success(function(response){
 			// Redirect
 			window.location.href='#/posts';

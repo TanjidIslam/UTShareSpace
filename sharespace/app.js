@@ -5,6 +5,7 @@ var app = express();
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var multer  = require('multer');
+var del = require('del');
 
 // Define storage specifications for images
 var storage = multer.diskStorage({
@@ -102,6 +103,17 @@ app.post('/api/multer',  upload.any(), function(req, res){
 	// Get and respond with path
 	var path = req.files[0].path.slice(6);
 	res.json(path);
+});
+
+// Delete image(s)
+app.put('/api/multer', function(req, res){
+	// Get paths through body parser
+	var paths = req.body;
+	// For each path, delete corresponding image
+	for (i = 0; i < paths.length; i++) {
+		del(['client' + paths[i]]);
+	}
+	res.json(paths);
 });
 
 // Port to listen
