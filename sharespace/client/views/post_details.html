@@ -1,6 +1,6 @@
 <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<a href="#/posts">Go Back</a>
 <div class="pull-right">
-	<a href="#/posts/edit/{{post._id}}">Edit</a>&nbsp;<span class="glyphicon glyphicon-pencil"></span> &nbsp;|&nbsp; <a href="#" ng-click="removePost(post._id, post.image_paths)">Delete</a>&nbsp;<span class="glyphicon glyphicon-trash"></span>
+	<a href="#/posts/edit/{{post._id}}">Edit</a>&nbsp;<span class="glyphicon glyphicon-pencil"></span> &nbsp;|&nbsp; <a href="#" ng-click="removePost(post._id, post.image_paths, post.file_paths)">Delete</a>&nbsp;<span class="glyphicon glyphicon-trash"></span>
 </div>
 <!-- Bootstrap panel -->
 <!-- ng-init directive tells the page which function to run -->
@@ -19,9 +19,19 @@
         <div ng-show="post.code">
           <p><pre><code><span ng-bind="post.code"></span></pre></code></p>
         </div>
-        <div ng-repeat="pic in post.image_paths">
-          <img id="images" ng-src="{{pic}}">
-        </div>
+        <div>
+          <div ng-repeat="pic in post.image_paths">
+            <!-- Fix on click to open windown within same window -->
+            <a href="{{pic}}" target="_blank"><img id="images" ng-src="{{pic}}"></a>
+            <a href="{{pic}}" download="{{pic}}"><span class="glyphicon glyphicon-download-alt"></span></a>
+          </div>
+        <div>
+        <div>
+          <div ng-repeat="file in post.file_paths">
+            <!-- Fix on click to open windown within same window -->
+            {{file.substring(12)}}
+            <a href="{{file}}" download="{{file}}"><span class="glyphicon glyphicon-download-alt"></span></a>
+          </div>
         <div>
           <button ng-click="click_btn(); updatePost()" type="button" ng-hide="hide_variable" class="btn btn-success center-block custom">Vote</button>
         </div>
