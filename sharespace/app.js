@@ -105,7 +105,7 @@ app.post('/api/multer',  upload.any(), function(req, res){
 	res.json(path);
 });
 
-// Delete image(s)
+// Delete uploaded elements(s)
 app.put('/api/multer', function(req, res){
 	// Get paths through body parser
 	var paths = req.body;
