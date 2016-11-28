@@ -23,14 +23,15 @@ h3.panel-title {
     padding: 10px 20px;
     font-size: 25px;
     border-radius: 10px;
-    width: 30%;  
+    width: 270px;
+    height: 70px;
 }
-
 
 #dates {
     float: right;
     font-size: 14px;
     font-weight: normal;
+    margin-bottom: -10px;
 }
 
 .panel-body  {
