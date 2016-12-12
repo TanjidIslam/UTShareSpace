@@ -57,6 +57,9 @@ myApp.controller('PostsController', ['$scope', '$http', '$location', '$routePara
 				}
 			}
 
+			//console.log(total_upload_list);
+			console.log(seperation_index);
+			console.log(total_upload_list.length);
 			// Define element counter that keepts track of when to stop uploading
 			var element_counter = 0;
 
@@ -68,7 +71,7 @@ myApp.controller('PostsController', ['$scope', '$http', '$location', '$routePara
 				fd.append('file', file);
 
 				// Check what kind of file
-				if (seperation_index != i) {
+				if (i < seperation_index) {
 					// Upload and get image url
 					$http.post('/api/multer', fd, {transformRequest: angular.identity, headers: {'Content-Type': undefined}}).success(function(response){
 						// Get image path as response and push it to image paths
