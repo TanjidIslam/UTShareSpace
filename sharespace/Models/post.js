@@ -32,15 +32,15 @@ var postSchema = mongoose.Schema({
 
 );
 
-// How we make Post object accessible from outside (module.exports)
+// Make Post object accessible from other files (module.exports) such as app.js
 var Post = module.exports = mongoose.model('Post', postSchema);
 
-// Get Posts function (getPosts)
+// Get posts function (getPosts)
 module.exports.getPosts = function(callback, limit){
 	Post.find(callback).limit(limit);
 }
 
-// Get post function (getPostById) its id
+// Get post function (getPostById) by its id
 module.exports.getPostById = function(id, callback){
 	Post.findById(id, callback);
 }
@@ -50,7 +50,7 @@ module.exports.addPost = function(post, callback){
 	Post.create(post, callback);
 }
 
-// Update post function (updatePost)
+// Update post function (updatePost) by its id
 module.exports.updatePost = function(id, post, options, callback){
 	var query = {_id: id};
 	var update = {
@@ -63,7 +63,7 @@ module.exports.updatePost = function(id, post, options, callback){
 	Post.findOneAndUpdate(query, update, options, callback);
 }
 
-// Delete post function (deletePost)
+// Delete post function (deletePost) by its id
 module.exports.removePost = function(id, callback){
 	var query = {_id: id};
 	Post.remove(query, callback);

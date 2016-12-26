@@ -1,4 +1,4 @@
-<!-- Bootstrap panel -->
+<!-- Go Back icon -->
 <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<a href="#/posts/details/{{post._id}}">Go Back</a>
 <div class="panel panel-default">
   <div class="panel-heading">
@@ -7,24 +7,29 @@
   <div class="panel-body">
     <div class="row">
       <div class="col-lg-12">
-        <!-- ng-submit directive that handles the form -->
+        <!-- ng-submit directive that handles the form once Submit button has been clicked -->
         <form ng-submit="updatePost()" ng-init="getPost()">
+          <!-- Edit title -->
           <div class="form-group">
             <label>Title</label>
-            <input type="text" class="form-control" ng-model="post.title" placeholder="Title" required>
+            <input type="text" class="form-control" ng-model="post.title" placeholder="Title" required/>
           </div>
+          <!-- Edit description -->
           <div class="form-group">
             <label>Description</label>
             <textarea rows="6" class="form-control" ng-model="post.description" placeholder="Description" required/>
           </div>
+          <!-- Edit video URL -->
           <div class="form-group">
             <label>Video URL</label>
-            <input type="url" class="form-control" ng-model="post.video_url" placeholder="Video URL">
+            <input type="url" class="form-control" ng-model="post.video_url" placeholder="Video URL"/>
           </div>
+          <!-- Edit code -->
           <div class="form-group">
             <label>Code</label>
             <textarea rows="6" class="form-control" ng-model="post.code" placeholder="Code"/>
           </div>
+          <!-- Submit button -->
           <button type="submit" class="btn btn-primary">Submit</button>
         </form>
       </div>

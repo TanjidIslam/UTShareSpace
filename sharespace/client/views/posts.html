@@ -1,5 +1,4 @@
-<!-- Bootstrap panel -->
-<!-- ng-init directive tells the page which function to run -->
+<!-- ng-init directive tells the page which function to run instantly when the page opens-->
 <div class="panel panel-default" ng-init="getPosts()">
   <div class="panel-heading">
     <h3 class="panel-title">Posts</h3>
@@ -9,13 +8,21 @@
       <!-- For each post in posts (for loop) change the order they are posted -->
     	<div ng-repeat="post in posts | orderBy:'$index':true" style="margin-bottom: 20px">
         <div class="col-lg-12">
+          <!-- Title -->
           <h4 id="post_title"><a href="#/posts/details/{{post._id}}">{{post.title}}</a></h4>
+          <!-- Created at glyphicon -->
           <p id="dates" ng-show="{{post.createdAt == post.updatedAt}}">Added&nbsp;<mydate>{{post.createdAt | date: 'medium'}}</mydate>&nbsp;<span class="glyphicon glyphicon-plus"></span></p>
+          <!-- Updated at glyphicon -->
           <p id="dates" ng-show="{{post.createdAt != post.updatedAt}}">Updated&nbsp;<mydate>{{post.updatedAt | date: 'medium'}}</mydate>&nbsp;<span class="glyphicon glyphicon-time"></span></p>
+          <!-- Video URL glyphicon-->
           <p class="post_glyphicon" ng-show="post.video_url">&nbsp;<span class="glyphicon glyphicon-film"></span></p>
+          <!-- Code glyphicon-->
           <p class="post_glyphicon" ng-show="post.code">&nbsp;<span class="glyphicon glyphicon-console"></span></p>
+          <!-- Image glyphicon-->
           <p class="post_glyphicon" ng-show="{{post.image_paths}}.length != 0">&nbsp;<span class="glyphicon glyphicon-picture"></span></p>
+          <!-- File glyphicon-->
           <p class="post_glyphicon" ng-show="{{post.file_paths}}.length != 0">&nbsp;<span class="glyphicon glyphicon-file"></span></p>
+          <!-- Description -->
     			<div>{{post.description}}</div>
     		</div>
     	</div>
