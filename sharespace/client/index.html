@@ -1,10 +1,13 @@
-<html ng-app="myApp"> <!-- AngularJS initializer -->
+<!-- AngularJS initializer -->
+<html ng-app="myApp">
 <head>
 	<title>ShareSpace</title>
+  <!-- Styling resources -->
 	<link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
 	<link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+  <!-- Header along with navigation -->
   <nav class="navbar navbar-default">
     <div class="container">
       <div class="navbar-header">
@@ -14,7 +17,7 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="#/posts">ShareSpace</a>
+        <a class="navbar-brand" href="/#/">ShareSpace</a>
       </div>
       <div id="navbar" class="collapse navbar-collapse">
         <ul class="nav navbar-nav navbar-right">
@@ -22,19 +25,20 @@
           <li><a href="#/posts/">My Profile</a></li>
           <li><a href="#/posts/">Logout</a></li>
         </ul>
-      </div><!--/.nav-collapse -->
+      </div>
     </div>
   </nav>
   <div class="container">
     <!-- Boostrap grid system -->
     <div class="row">
     	<div class="col-md-12">
-    		<!-- Special directive angular uses to output all the views -->
+    		<!-- Angular directive to output all the views -->
     		<div ng-view></div>
     	</div>
     </div>
   </div>
-  </div> <!-- /.container -->
+  </div>
+  <!-- Script resources-->
   <script src="/bower_components/jquery/dist/jquery.js"></script>
   <script src="/bower_components/angular/angular.js"></script>
   <script src="/bower_components/angular-route/angular-route.js"></script>
