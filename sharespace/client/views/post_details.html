@@ -17,6 +17,10 @@
         <div>
           <p>{{post.description}}</p>
         </div>
+        <!-- Video URL -->
+        <div ng-show="post.video_url">
+          <p><embed-video href="{{post.video_url}}" width="500" height="300"></embed-video></p>
+        </div>
         <!-- Code -->
         <div ng-show="post.code">
           <p><pre><code><span ng-bind="post.code"></span></pre></code></p>
