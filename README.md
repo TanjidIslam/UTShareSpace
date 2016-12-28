@@ -6,6 +6,6 @@ ShareSpace is an online web repository that allows students to share academic ma
 
 ### Frameworks & Programming Languages
 
-* __***Front-end:***__ AngularJS, HTML, CSS and Bootstrap
-* __***Back-end:***__ Node.js, Express Framework and JavaScript
-* __***Database:***__ MongoDB
+* _**Front-end:**_ AngularJS, HTML, CSS and Bootstrap
+* _**Back-end:**_ Node.js, Express Framework and JavaScript
+* _**Database:**_ MongoDB
