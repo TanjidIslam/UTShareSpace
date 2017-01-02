@@ -43,6 +43,13 @@
             <a href="{{file}}" download="{{file}}"><span class="glyphicon glyphicon-download-alt"></span></a>
           </div>
         </div>
+        <div>
+          <!-- For each tag in converted list of tags -->
+          <div ng-repeat="tag in post.tag_list.split(' ')">
+            <!-- Display tag -->
+            <button class="tags_link" disabled>{{tag}}</button>
+          </div>
+        </div>
         <!-- Vote button -->
         <div>
           <button ng-click="click_btn(); updatePost()" type="button" ng-hide="hide_variable" class="btn btn-success center-block custom">Vote</button>

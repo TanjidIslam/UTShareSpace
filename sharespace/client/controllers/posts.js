@@ -25,6 +25,18 @@ myApp.controller('PostsController', ['$scope', '$http', '$location', '$routePara
 
 		// GET request that gets specific post by id
 		$http.get('/api/posts/' + id).success(function(response){
+
+			// Declare empty string
+			var string_of_tags = "";
+
+			// Loop through list of tags and add to string
+			for (i = 0; i < response.tag_list.length; i++) {
+				string_of_tags += response.tag_list[i] + " ";
+			}
+
+			// Reassign tag list as a string of tags
+			response.tag_list = string_of_tags.slice(0, -1);
+
 			// Response will be the post
 			$scope.post = response;
 		});
@@ -32,6 +44,14 @@ myApp.controller('PostsController', ['$scope', '$http', '$location', '$routePara
 
 	// Scope function that adds a post
 	$scope.addPost = function(){
+
+		// Convert string of tags into list of tags
+		$scope.post.tag_list = $scope.post.tag_list.split(" ");
+
+		// Remove all duplicates from list of tags
+		$scope.post.tag_list = $scope.post.tag_list.filter( function(item, index, inputArray) {
+           return inputArray.indexOf(item) == index;
+        });
 
 		// Define image paths
 		$scope.post.image_paths = [];
@@ -115,6 +135,14 @@ myApp.controller('PostsController', ['$scope', '$http', '$location', '$routePara
 
 		// Get id
 		var id = $routeParams.id;
+
+		// Convert tag string of tags into list of tags
+		$scope.post.tag_list = $scope.post.tag_list.split(" ");
+
+		// Remove all duplicates from list of tags
+		$scope.post.tag_list = $scope.post.tag_list.filter( function(item, index, inputArray) {
+           return inputArray.indexOf(item) == index;
+        });
 
 		// PUT request to edit a post
 		// Second parameter is what we want to edit
