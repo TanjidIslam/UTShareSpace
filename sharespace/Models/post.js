@@ -26,6 +26,9 @@ var postSchema = mongoose.Schema({
 	},
 	file_paths:{
 		type: [String]
+	},
+	tag_list:{
+		type: [String]
 	}
 // timestamps will create a createdAt and updatedAt variables within database
 }, {timestamps: true}
@@ -58,7 +61,8 @@ module.exports.updatePost = function(id, post, options, callback){
 		description: post.description,
 		video_url: post.video_url,
 		code: post.code,
-		votes: post.votes
+		votes: post.votes,
+		tag_list: post.tag_list
 	}
 	Post.findOneAndUpdate(query, update, options, callback);
 }
