@@ -1,5 +1,5 @@
 <!-- Go Back icon -->
-<span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<a href="#/posts">Go Back</a>
+<span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<a href="/#/">Go Back</a>
 <div class="panel panel-default">
   <div class="panel-heading">
     <h3 class="panel-title">Add Post</h3>
@@ -38,6 +38,21 @@
           <div class="form-group">
             <label>Files</label>
             <input type="file" file-model="myFile" accept=".pdf, .docx, .py" multiple/>
+          </div>
+          <!-- Add tag(s) -->
+          <div class="form-group">
+            <label>Tags</label>
+            <input type="text" class="form-control" ng-model="post.tag_list" placeholder="Tags"/>
+            <div>
+            </br>
+              <!-- Suggested tags -->
+              Suggested:
+              <button ng-click="add_tag(button_text = 'variables')" class="tags_link">variables</button>
+              <button ng-click="add_tag(button_text = 'functions')" class="tags_link">functions</button>
+              <button ng-click="add_tag(button_text = 'strings')" class="tags_link">strings</button>
+              <button ng-click="add_tag(button_text = 'lists')" class="tags_link">lists</button>
+              <button ng-click="add_tag(button_text = 'if_statements')" class="tags_link">if_statements</button>
+            </div>
           </div>
           <!-- Submit button -->
           <button type="submit" class="btn btn-primary">Submit</button>
