@@ -45,13 +45,17 @@ myApp.controller('PostsController', ['$scope', '$http', '$location', '$routePara
 	// Scope function that adds a post
 	$scope.addPost = function(){
 
-		// Convert string of tags into list of tags
-		$scope.post.tag_list = $scope.post.tag_list.split(" ");
+		// If tags exist
+		if ($scope.post.tag_list) {
 
-		// Remove all duplicates from list of tags
-		$scope.post.tag_list = $scope.post.tag_list.filter( function(item, index, inputArray) {
-           return inputArray.indexOf(item) == index;
-        });
+			// Convert string of tags into list of tags
+			$scope.post.tag_list = $scope.post.tag_list.split(" ");
+
+			// Remove all duplicates from list of tags
+			$scope.post.tag_list = $scope.post.tag_list.filter( function(item, index, inputArray) {
+				return inputArray.indexOf(item) == index;
+        	});
+		}
 
 		// Define image paths
 		$scope.post.image_paths = [];
