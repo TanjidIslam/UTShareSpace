@@ -41,17 +41,17 @@
           </div>
           <!-- Add tag(s) -->
           <div class="form-group">
-            <label>Tags</label>
-            <input type="text" class="form-control" ng-model="post.tag_list" placeholder="Tags"/>
+            <label>Tags <i style="font-weight:normal;">(space separated)</i></label>
+            <input type="text" class="form-control" ng-model="post.tag_list" placeholder="Tags" name="my_data"/>
             <div>
             </br>
               <!-- Suggested tags -->
               Suggested:
-              <button ng-click="add_tag(button_text = 'variables')" class="tags_link">variables</button>
-              <button ng-click="add_tag(button_text = 'functions')" class="tags_link">functions</button>
-              <button ng-click="add_tag(button_text = 'strings')" class="tags_link">strings</button>
-              <button ng-click="add_tag(button_text = 'lists')" class="tags_link">lists</button>
-              <button ng-click="add_tag(button_text = 'if_statements')" class="tags_link">if_statements</button>
+              <button class="tags_link" disabled>variables</button>
+              <button class="tags_link" disabled>functions</button>
+              <button class="tags_link" disabled>strings</button>
+              <button class="tags_link" disabled>lists</button>
+              <button class="tags_link" disabled>if_statements</button>
             </div>
           </div>
           <!-- Submit button -->
