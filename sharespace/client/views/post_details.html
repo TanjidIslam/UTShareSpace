@@ -2,7 +2,7 @@
 <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<a href="/#/">Go Back</a>
 <div class="pull-right">
   <!-- Edit and Delete icon -->
-	<a href="#/posts/edit/{{post._id}}">Edit</a>&nbsp;<span class="glyphicon glyphicon-pencil"></span> &nbsp;|&nbsp; <a href="#" ng-click="removePost(post._id, post.image_paths, post.file_paths)">Delete</a>&nbsp;<span class="glyphicon glyphicon-trash"></span>
+	<a href="#/posts/edit/{{post._id}}">Edit</a>&nbsp;<span class="glyphicon glyphicon-pencil"></span> &nbsp;|&nbsp; <a href="" ng-click="removePost(post._id, post.image_paths, post.file_paths)">Delete</a>&nbsp;<span class="glyphicon glyphicon-trash"></span>
 </div>
 <!-- ng-init directive tells the page which function to run instantly when the page opens -->
 <div class="panel panel-default" ng-init="getPost()" ng-controller="vote_button">
