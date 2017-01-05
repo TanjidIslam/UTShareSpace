@@ -51,6 +51,18 @@ myApp.controller('PostsController', ['$scope', '$http', '$location', '$routePara
 			// Convert string of tags into list of tags
 			$scope.post.tag_list = $scope.post.tag_list.split(" ");
 
+			// For every element in the array
+			for(var i = $scope.post.tag_list.length - 1; i >= 0; i--) {
+
+				// If there are any extra spaces
+				if($scope.post.tag_list[i] === "") {
+
+					// Remove them from the array
+					$scope.post.tag_list.splice(i, 1);
+
+				}
+			}
+
 			// Remove all duplicates from list of tags
 			$scope.post.tag_list = $scope.post.tag_list.filter( function(item, index, inputArray) {
 				return inputArray.indexOf(item) == index;
@@ -142,6 +154,18 @@ myApp.controller('PostsController', ['$scope', '$http', '$location', '$routePara
 
 		// Convert tag string of tags into list of tags
 		$scope.post.tag_list = $scope.post.tag_list.split(" ");
+
+		// For every element in the array
+		for(var i = $scope.post.tag_list.length - 1; i >= 0; i--) {
+
+			// If there are any extra spaces
+			if($scope.post.tag_list[i] === "") {
+
+				// Remove them from the array
+				$scope.post.tag_list.splice(i, 1);
+
+			}
+		}
 
 		// Remove all duplicates from list of tags
 		$scope.post.tag_list = $scope.post.tag_list.filter( function(item, index, inputArray) {
