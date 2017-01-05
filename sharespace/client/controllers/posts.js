@@ -184,19 +184,31 @@ myApp.controller('PostsController', ['$scope', '$http', '$location', '$routePara
 	// We are not getting id from url. This time we are getting it from parameter.
 	$scope.removePost = function(id, image_paths, file_paths){
 
-		// Concatenate paths of images and files in one array
-		var paths = image_paths.concat(file_paths);
+		// Create dialog box that user confirms they want to delete post
+		var result = confirm("Are you sure you want to delete this post?");
 
-		// PUT request that deletes images of the above paths
-		$http.put('/api/multer', paths).success(function(response){
+		// Case where they want to delete post
+		if (result) {
 
-			// DELETE request to delete a post
-			$http.delete('/api/posts/' + id).success(function(response){
+			// Concatenate paths of images and files in one array
+			var paths = image_paths.concat(file_paths);
 
-				// Redirect
-				window.location.href='#/posts';
+			// PUT request that deletes images of the above paths
+			$http.put('/api/multer', paths).success(function(response){
 
+				// DELETE request to delete a post
+				$http.delete('/api/posts/' + id).success(function(response){
+
+					// Redirect
+					window.location.href='#/posts';
+				});
 			});
-		});
+
+		// Case where they don't want to delete post
+		} else {
+
+			// Redirect to post
+			window.location.href='#/posts/details/' + id;
+		}
 	}
 }]);
