@@ -49,15 +49,27 @@ h3.panel-title {
 }
 
 .tags_link {
-    color: #00b300;
-    background-color: #ffff99;
+    color: #29a329;
+    background-color: #ffdd99;
     padding: 5px 5px 5px 5px;
     margin-bottom: 5px;
     border-radius: 14px;
+    display: inline-block;
     border: none;
 }
 
 .tags_link:hover { 
-    color: #ffff99;
-    background-color: #00b300;
+    color: #e68a00;
+    background-color: #84e184;
+    text-decoration: none;
+}
+
+#header_link {
+    color: #00cc44;
+    font-size: 16px;
+}
+
+#header_link:hover {
+    color: #ffb84d;
+    font-size: 18px;
 }
