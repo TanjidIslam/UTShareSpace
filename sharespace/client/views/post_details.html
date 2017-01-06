@@ -45,9 +45,9 @@
         </div>
         <div ng-show="post.tag_list.length != 0">
           <!-- For each tag in converted list of tags -->
-          <div ng-repeat="tag in post.tag_list.split(' ')">
+          <div ng-repeat="value in post.tag_list.split(' ')">
             <!-- Display tag -->
-            <button class="tags_link" disabled>{{tag}}</button>
+            <a class="tags_link" href="#/posts/tag/{{value}}">{{value}}</a>
           </div>
         </div>
         <!-- Vote button -->

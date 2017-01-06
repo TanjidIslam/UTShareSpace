@@ -43,6 +43,11 @@ module.exports.getPosts = function(callback, limit){
 	Post.find(callback).limit(limit);
 }
 
+// Get posts function (getPostsByTag) containing specified tag
+module.exports.getPostsByTag = function(val, callback){
+	Post.find({tag_list: val}, callback);
+}
+
 // Get post function (getPostById) by its id
 module.exports.getPostById = function(id, callback){
 	Post.findById(id, callback);
