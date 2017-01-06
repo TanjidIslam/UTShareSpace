@@ -17,6 +17,20 @@ myApp.controller('PostsController', ['$scope', '$http', '$location', '$routePara
 		});
 	}
 
+	// Scope function to get posts by specified tag
+	$scope.getPostsByTag = function(){
+
+		// Get tag value
+		var val = $routeParams.val;
+
+		// GET request to get all the posts by specified tag
+		$http.get('/api/posts/tag/' + val).success(function(response){
+			// Response will be the posts by specified tag
+			$scope.posts = response;
+			$scope.val = val
+		});
+	}
+
 	// Scope function to get specific post by id
 	$scope.getPost = function(){
 

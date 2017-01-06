@@ -60,6 +60,16 @@ app.get('/api/posts', function(req, res){
 	});
 });
 
+// Get all the posts containing specified tag
+app.get('/api/posts/tag/:_val', function(req, res){
+	Post.getPostsByTag(req.params._val, function(err, posts){
+		if (err){
+			throw err;
+		}
+		res.json(posts);
+	});
+});
+
 // Get specific post by its id
 app.get('/api/posts/:_id', function(req, res){
 	Post.getPostById(req.params._id, function(err, post){

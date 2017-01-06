@@ -16,6 +16,11 @@ myApp.config(function($routeProvider){
 		controller: 'PostsController',
 		templateUrl: 'views/posts.html'
 	})
+	// Getting all the posts by specified tag
+	.when('/posts/tag/:val', {
+		controller: 'PostsController',
+		templateUrl: 'views/posts_by_tag.html'
+	})
 	// Getting specific post by id
 	.when('/posts/details/:id', {
 		controller: 'PostsController',
