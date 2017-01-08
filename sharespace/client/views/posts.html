@@ -1,20 +1,20 @@
 <!-- ng-init directive tells the page which function to run instantly when the page opens-->
 <div class="panel panel-default" ng-init="getPosts()">
   <div class="panel-heading">
-    <div class="btn-group">
-      <h3 class="panel-title">Post</h3>
-      <div class="dropdown">
-        <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-        Sort by
-        <span class="caret"></span>
-        </button>
-        <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-          <li><a href="/#/">Date</a></li>
-          <li><a href="/#/">Votes</a></li>
-          <li><a href="/#/">Trending</a></li>
-        </ul>
+    <h3 class="panel-title">Posts</h3>
+      <div class="btn-group">
+        <div class="dropdown">
+          <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+          Sort by
+          <span class="caret"></span>
+          </button>
+          <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+            <li><a href="/#/">Date</a></li>
+            <li><a href="/#/">Votes</a></li>
+            <li><a href="/#/">Trending</a></li>
+          </ul>
+        </div>
       </div>
-    </div>
   </div>
   <div class="panel-body">
     <div class="row">

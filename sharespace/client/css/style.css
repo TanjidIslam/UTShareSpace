@@ -17,6 +17,9 @@ h3.panel-title {
 
 #votes {
 	float: right;
+    font-size: 20px;
+    font-weight: 500;
+    margin-top: 1px;
 }
 
 .custom {
@@ -72,4 +75,17 @@ h3.panel-title {
 #header_link:hover {
     color: #ffb84d;
     font-size: 18px;
+}
+
+.btn-group {
+   float: right;
+ }
+
+.panel-heading {
+    height: 53px;
+}
+
+h3.panel-title {
+    position:absolute;
+    margin-top: 5px;
 }
