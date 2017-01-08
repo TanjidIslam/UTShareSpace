@@ -69,12 +69,12 @@ h3.panel-title {
 
 #header_link {
     color: #00cc44;
-    font-size: 16px;
+    font-size: 18px;
+    font-weight: 450;
 }
 
 #header_link:hover {
     color: #ffb84d;
-    font-size: 18px;
 }
 
 .btn-group {
