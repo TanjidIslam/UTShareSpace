@@ -53,7 +53,7 @@
         </div>
         <!-- Vote button -->
         <div>
-          <button ng-click="click_btn(); updatePost()" type="button" ng-hide="hide_variable" class="btn btn-success center-block custom">Vote</button>
+          <button ng-class="{'btn-success': button_color, 'btn-danger': !button_color}" ng-click="click_btn(); updatePost()" type="button" class="btn center-block custom">{{vote_status}}</span></button>
         </div>
       </div>
     </div>
