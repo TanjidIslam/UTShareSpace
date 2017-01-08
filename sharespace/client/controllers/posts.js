@@ -166,25 +166,29 @@ myApp.controller('PostsController', ['$scope', '$http', '$location', '$routePara
 		// Get id
 		var id = $routeParams.id;
 
-		// Convert tag string of tags into list of tags
-		$scope.post.tag_list = $scope.post.tag_list.split(" ");
+		// If tags exist
+		if ($scope.post.tag_list) {
 
-		// For every element in the array
-		for(var i = $scope.post.tag_list.length - 1; i >= 0; i--) {
+			// Convert string of tags into list of tags
+			$scope.post.tag_list = $scope.post.tag_list.split(" ");
 
-			// If there are any extra spaces
-			if($scope.post.tag_list[i] === "") {
+			// For every element in the array
+			for(var i = $scope.post.tag_list.length - 1; i >= 0; i--) {
 
-				// Remove them from the array
-				$scope.post.tag_list.splice(i, 1);
+				// If there are any extra spaces
+				if($scope.post.tag_list[i] === "") {
 
+					// Remove them from the array
+					$scope.post.tag_list.splice(i, 1);
+
+				}
 			}
-		}
 
-		// Remove all duplicates from list of tags
-		$scope.post.tag_list = $scope.post.tag_list.filter( function(item, index, inputArray) {
-           return inputArray.indexOf(item) == index;
-        });
+			// Remove all duplicates from list of tags
+			$scope.post.tag_list = $scope.post.tag_list.filter( function(item, index, inputArray) {
+				return inputArray.indexOf(item) == index;
+        	});
+		}
 
 		// PUT request to edit a post
 		// Second parameter is what we want to edit

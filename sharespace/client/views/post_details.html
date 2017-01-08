@@ -8,7 +8,8 @@
 <div class="panel panel-default" ng-init="getPost()" ng-controller="vote_button">
   <div class="panel-heading">
     <!-- Title and votes -->
-  	<h3 class="panel-title">{{post.title}} <p id="votes">{{post.votes}} Votes</p></h3>
+  	<h3 class="panel-title">{{post.title}}</h3>
+    <p id="votes">{{post.votes}} Votes</p>
   </div>
   <div class="panel-body">
     <div class="row">
@@ -52,7 +53,7 @@
         </div>
         <!-- Vote button -->
         <div>
-          <button ng-click="click_btn(); updatePost()" type="button" ng-hide="hide_variable" class="btn btn-success center-block custom">Vote</button>
+          <button ng-class="{'btn-success': button_color, 'btn-danger': !button_color}" ng-click="click_btn(); updatePost()" type="button" class="btn center-block custom">{{vote_status}}</span></button>
         </div>
       </div>
     </div>
