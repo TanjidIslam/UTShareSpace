@@ -44,7 +44,7 @@
             <a href="{{file}}" download="{{file}}"><span class="glyphicon glyphicon-download-alt"></span></a>
           </div>
         </div>
-        <div ng-show="post.tag_list.length != 0">
+        <div ng-show="post.tag_list">
           <!-- For each tag in converted list of tags -->
           <div ng-repeat="value in post.tag_list.split(' ')">
             <!-- Display tag -->
@@ -53,7 +53,7 @@
         </div>
         <!-- Vote button -->
         <div>
-          <button ng-class="{'btn-success': button_color, 'btn-danger': !button_color}" ng-click="click_btn(); updatePost()" type="button" class="btn center-block custom">{{vote_status}}</span></button>
+          <button ng-class="{'btn-success': button_color, 'btn-danger': !button_color}" ng-click="click_btn(); update_votes()" type="button" class="btn center-block custom">{{vote_status}}</span></button>
         </div>
       </div>
     </div>
