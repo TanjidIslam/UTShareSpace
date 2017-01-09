@@ -167,7 +167,7 @@ myApp.controller('PostsController', ['$scope', '$http', '$location', '$routePara
 		var id = $routeParams.id;
 
 		// If tags exist
-		if ($scope.post.tag_list) {
+		if ($scope.post.tag_list && typeof $scope.post.tag_list === "string") {
 
 			// Convert string of tags into list of tags
 			$scope.post.tag_list = $scope.post.tag_list.split(" ");
@@ -193,7 +193,30 @@ myApp.controller('PostsController', ['$scope', '$http', '$location', '$routePara
 		// PUT request to edit a post
 		// Second parameter is what we want to edit
 		$http.put('/api/posts/' + id, $scope.post).success(function(response){
+
+			// Declare empty string
+			var string_of_tags = "";
+
+			// Loop through list of tags and add to string
+			for (i = 0; i < response.tag_list.length; i++) {
+				string_of_tags += response.tag_list[i] + " ";
+			}
+
+			// Reassign tag list as a string of tags
+			$scope.post.tag_list = string_of_tags.slice(0, -1);
+
 			// Redirect
+			window.location.href='#/posts/details/' + id;
+		});
+	}
+
+	// Scope function that updates votes
+	$scope.update_votes = function(){
+
+		// Get id
+		var id = $routeParams.id;
+
+		$http.put('/api/posts/' + id, $scope.post).success(function(response){
 			window.location.href='#/posts/details/' + id;
 		});
 	}
