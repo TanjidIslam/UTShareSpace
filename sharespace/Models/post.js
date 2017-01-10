@@ -29,11 +29,15 @@ var postSchema = mongoose.Schema({
 	},
 	tag_list:{
 		type: [String]
+	},
+	date:{
+		type: Date,
+	},
+	date_status:{
+		type: String,
+		default: "Added"
 	}
-// timestamps will create a createdAt and updatedAt variables within database
-}, {timestamps: true}
-
-);
+});
 
 // Make Post object accessible from other files (module.exports) such as app.js
 var Post = module.exports = mongoose.model('Post', postSchema);
@@ -67,7 +71,9 @@ module.exports.updatePost = function(id, post, options, callback){
 		video_url: post.video_url,
 		code: post.code,
 		votes: post.votes,
-		tag_list: post.tag_list
+		tag_list: post.tag_list,
+		date: post.date,
+		date_status: post.date_status
 	}
 	Post.findOneAndUpdate(query, update, options, callback);
 }

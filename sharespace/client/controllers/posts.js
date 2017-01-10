@@ -59,6 +59,9 @@ myApp.controller('PostsController', ['$scope', '$http', '$location', '$routePara
 	// Scope function that adds a post
 	$scope.addPost = function(){
 
+		// Assign date to date
+		$scope.post.date = Date.now();
+
 		// If tags exist
 		if ($scope.post.tag_list) {
 
@@ -166,6 +169,15 @@ myApp.controller('PostsController', ['$scope', '$http', '$location', '$routePara
 		// Get id
 		var id = $routeParams.id;
 
+		// Update date to current date
+		$scope.post.date = Date.now();
+
+		// Update date status
+		$scope.post.date_status = "Updated"
+
+		ang = angular.element("dates");
+		console.log(ang)
+
 		// If tags exist
 		if ($scope.post.tag_list && typeof $scope.post.tag_list === "string") {
 
@@ -185,7 +197,7 @@ myApp.controller('PostsController', ['$scope', '$http', '$location', '$routePara
 			}
 
 			// Remove all duplicates from list of tags
-			$scope.post.tag_list = $scope.post.tag_list.filter( function(item, index, inputArray) {
+			$scope.post.tag_list = $scope.post.tag_list.filter(function(item, index, inputArray) {
 				return inputArray.indexOf(item) == index;
         	});
 		}
@@ -216,6 +228,8 @@ myApp.controller('PostsController', ['$scope', '$http', '$location', '$routePara
 		// Get id
 		var id = $routeParams.id;
 
+		// PUT request to edit a post
+		// Second parameter is what we want to edit
 		$http.put('/api/posts/' + id, $scope.post).success(function(response){
 			window.location.href='#/posts/details/' + id;
 		});
