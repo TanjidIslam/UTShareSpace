@@ -23,10 +23,13 @@
         <div class="col-lg-12">
           <!-- Title -->
           <h4 id="post_title"><a href="#/posts/details/{{post._id}}">{{post.title}}</a></h4>
-          <!-- Created at glyphicon -->
-          <p id="dates" ng-show="{{post.createdAt == post.updatedAt}}">Added&nbsp;<mydate>{{post.createdAt | date: 'medium'}}</mydate>&nbsp;<span class="glyphicon glyphicon-plus"></span></p>
-          <!-- Updated at glyphicon -->
-          <p id="dates" ng-show="{{post.createdAt != post.updatedAt}}">Updated&nbsp;<mydate>{{post.updatedAt | date: 'medium'}}</mydate>&nbsp;<span class="glyphicon glyphicon-time"></span></p>
+          <!-- Date status of post followed by date -->
+          <p id="dates">{{post.date_status}}&nbsp;<mydate>{{post.date | date: 'medium'}}</mydate>&nbsp;
+          <!-- Created at glyphicon that appears when date status is set to 'Added' -->
+          <span ng-show="post.date_status == 'Added'" class="glyphicon glyphicon-plus"></span>
+          <!-- Updated at glyphicon that appears when date status is set to 'Updated' -->
+          <span ng-show="post.date_status == 'Updated'" class="glyphicon glyphicon-time"></span>
+          </p>
           <!-- Video URL glyphicon-->
           <p class="post_glyphicon" ng-show="post.video_url">&nbsp;<span class="glyphicon glyphicon-film"></span></p>
           <!-- Code glyphicon-->
