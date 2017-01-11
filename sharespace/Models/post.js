@@ -37,7 +37,9 @@ var postSchema = mongoose.Schema({
 		type: String,
 		default: "Added"
 	}
-});
+// timestamps that add variables createdAt and updatedAt to database
+}, {timestamps: true}
+);
 
 // Make Post object accessible from other files (module.exports) such as app.js
 var Post = module.exports = mongoose.model('Post', postSchema);

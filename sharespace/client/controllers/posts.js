@@ -175,9 +175,6 @@ myApp.controller('PostsController', ['$scope', '$http', '$location', '$routePara
 		// Update date status
 		$scope.post.date_status = "Updated"
 
-		ang = angular.element("dates");
-		console.log(ang)
-
 		// If tags exist
 		if ($scope.post.tag_list && typeof $scope.post.tag_list === "string") {
 
