@@ -252,7 +252,7 @@ myApp.controller('PostsController', ['$scope', '$http', '$location', '$routePara
 				$http.delete('/api/posts/' + id).success(function(response){
 
 					// Redirect
-					window.location.href='#/posts';
+					window.location.href='/#/';
 				});
 			});
 
