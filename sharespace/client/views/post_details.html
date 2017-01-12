@@ -20,39 +20,39 @@
         </div>
         <!-- Video URL -->
         <div ng-show="post.video_url">
-          <p><embed-video href="{{post.video_url}}" width="500" height="300"></embed-video></p>
+          <p id="embed_video"><embed-video href="{{post.video_url}}" height="300" width="500" id="video" frameborder="0" allowfullscreen></embed-video></p>
         </div>
         <!-- Code -->
         <div ng-show="post.code">
           <p><pre><code><span ng-bind="post.code"></span></pre></code></p>
         </div>
         <!-- Image(s) -->
-        <div>
+        <div style="margin-top: 20px; text-align: left;">
           <!-- For each image -->
-          <div ng-repeat="pic in post.image_paths">
+          <div id="display_images" ng-repeat="pic in post.image_paths">
             <!-- Display image -->
             <a href="{{pic}}" target="_blank"><img id="images" ng-src="{{pic}}"></a>
             <a href="{{pic}}" download="{{pic}}"><span class="glyphicon glyphicon-download-alt"></span></a>
           </div>
         </div>
         <!-- File(s) -->
-        <div>
+        <div style="margin-top: 20px; text-align: left;">
           <!-- For each file -->
-          <div ng-repeat="file in post.file_paths">
+          <div id="display_files" ng-repeat="file in post.file_paths">
             <!-- Display file -->
             {{file.substring(12)}}
             <a href="{{file}}" download="{{file}}"><span class="glyphicon glyphicon-download-alt"></span></a>
           </div>
         </div>
-        <div ng-show="post.tag_list">
+        <div ng-show="post.tag_list" style="margin-top: 20px; text-align: center;">
           <!-- For each tag in converted list of tags -->
-          <div ng-repeat="value in post.tag_list.split(' ')">
+          <div id="display_tags" ng-repeat="value in post.tag_list.split(' ')">
             <!-- Display tag -->
             <a class="tags_link" href="#/posts/tag/{{value}}">{{value}}</a>
           </div>
         </div>
         <!-- Vote button -->
-        <div>
+        <div style="margin-top: 30px;">
           <button ng-class="{'btn-success': button_color, 'btn-danger': !button_color}" ng-click="click_btn(); update_votes()" type="button" class="btn center-block custom">{{vote_status}}</span></button>
         </div>
       </div>

@@ -46,8 +46,8 @@ h3.panel-title {
 }
 
 #images {
-    width: 80px;
-    height: 80px;
+    width: 120px;
+    height: 120px;
     margin-bottom: 5px;
 }
 
@@ -88,4 +88,52 @@ h3.panel-title {
 h3.panel-title {
     position:absolute;
     margin-top: 5px;
+}
+
+#embed_video {
+    text-align: center;
+    overflow: hidden;
+}
+
+#display_images {
+    padding-right: 10px;
+    display: inline-block;
+}
+
+#display_files {
+    padding-right: 10px;
+    display: inline-block;
+}
+
+#display_tags {
+    padding-right: 5px;
+    display: inline-block;
+}
+
+div.panel-default > div.panel-heading {
+    background-color: #ececec;
+}
+
+div.panel.panel-default {
+    border: none;
+}
+
+div.panel-body {
+    background-color: #f8f8f8;
+}
+
+ul.dropdown-menu {
+    background-color: #f8f8f8;
+}
+
+ul.dropdown-menu > li > a:hover {
+    background-color: #dcdcdc;
+}
+
+#dropdownMenu1 {
+    background-color: #f8f8f8;
+}
+
+#dropdownMenu1:hover {
+    background-color: #dcdcdc;
 }
