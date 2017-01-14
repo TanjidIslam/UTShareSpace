@@ -48,7 +48,7 @@
           <!-- For each tag in converted list of tags -->
           <div id="display_tags" ng-repeat="value in post.tag_list.split(' ')">
             <!-- Display tag -->
-            <a class="tags_link" href="#/posts/tag/{{value}}">{{value}}</a>
+            <a class="tags_link" href="/#/posts/tag/{{value}}">{{value}}</a>
           </div>
         </div>
         <!-- Vote button -->
@@ -59,3 +59,15 @@
     </div>
   </div>
 </div>
+<style>
+@media screen and (max-width: 620px) {
+
+    #votes {
+      margin-top: 33px;
+    }
+
+    div.panel-heading {
+      padding-bottom: 70px;
+    }
+
+</style>
