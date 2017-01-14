@@ -25,8 +25,8 @@ myApp.controller('sort_controller', ['$scope', function($scope){
 		// Case where user selects to sort based on date that posts were updated
 		} else if (propertyName == "updatedAt") {
 
-			// Sort based on date updated
-			$scope.sort_property = "updatedAt";
+			// Sort based on date updated (note that variable date is used, not updatedAt)
+			$scope.sort_property = "date";
 			// Set status to false
 			$scope.sort_status = "false";
 

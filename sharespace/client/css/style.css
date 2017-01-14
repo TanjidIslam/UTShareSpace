@@ -9,6 +9,7 @@
 
 h3.panel-title {
     font-size: 20px;
+    padding-bottom: 5px;
 }
 
 .panel-heading {
@@ -19,7 +20,7 @@ h3.panel-title {
 	float: right;
     font-size: 20px;
     font-weight: 500;
-    margin-top: 1px;
+    margin-top: 3px;
 }
 
 .custom {
@@ -88,6 +89,10 @@ h3.panel-title {
 h3.panel-title {
     position:absolute;
     margin-top: 5px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    width: 85%;
 }
 
 #embed_video {
@@ -136,4 +141,48 @@ ul.dropdown-menu > li > a:hover {
 
 #dropdownMenu1:hover {
     background-color: #dcdcdc;
+}
+
+#post_description {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+/* For smaller devices */
+@media screen and (max-width: 710px) {
+
+    .post_glyphicon {
+        display: none;
+    }
+
+    a.ng-binding {
+
+    }
+    #dates {
+        float: none;
+        text-align: center;
+    }
+    #post_description {
+        margin-top: 10px;
+    }
+}
+
+ul.dropdown-menu {
+    left: 0;
+}
+
+@media screen and (max-width: 620px) {
+
+    #votes {
+        margin-top: 33px;
+        text-align: center;
+    }
+
+    h3.panel-title {
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        width: 85%;
+    }
 }
