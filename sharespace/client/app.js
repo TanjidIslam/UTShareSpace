@@ -4,15 +4,8 @@ var myApp = angular.module('myApp', ['ngRoute', 'videosharing-embed']);
 
 // Setting up all te routes
 myApp.config(function($routeProvider){
-	// Which url we want (in this case, home page)
-	$routeProvider.when('/', {
-		// Specify which controller we want to use when the user goes to this route (in this case, PostsController)
-		controller: 'PostsController',
-		// Specify which template url will be used when the user goes to this route (in this case, views/posts.html)
-		templateUrl: 'views/posts.html'
-	})
 	// Getting all the posts
-	.when('/posts', {
+	$routeProvider.when('/', {
 		controller: 'PostsController',
 		templateUrl: 'views/posts.html'
 	})

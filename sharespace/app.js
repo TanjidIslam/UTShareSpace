@@ -40,7 +40,7 @@ mongoose.connect('mongodb://localhost/sharespace');
 // Database object
 var db = mongoose.connection;
 
-// Route for home page
+// Route for home page (get all posts)
 app.get('/', function(req, res){
 	Post.getPosts(function(err, posts){
 		if (err){
@@ -94,7 +94,7 @@ app.post('/api/posts', function(req, res){
 	});
 });
 
-// Updte existing post
+// Update existing post
 app.put('/api/posts/:_id', function(req, res){
 
 	// Get id
@@ -104,6 +104,23 @@ app.put('/api/posts/:_id', function(req, res){
 	var post = req.body;
 
 	Post.updatePost(id, post, {}, function(err, post){
+		if (err){
+			throw err;
+		}
+		res.json(post);
+	});
+});
+
+// Update votes of existing post
+app.put('/api/posts/:_id/vote', function(req, res){
+
+	// Get id
+	var id = req.params._id;
+
+	// Get post details through body parser
+	var post = req.body;
+
+	Post.updateVotes(id, post, {}, function(err, post){
 		if (err){
 			throw err;
 		}

@@ -1,7 +1,5 @@
-<!-- Go Back icon -->
-<span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<a href="javascript:history.go(-1)">Go Back</a>
 <!-- ng-init directive tells the page which function to run instantly when the page opens-->
-<div class="panel panel-default" ng-controller="sort_controller" ng-init="getPostsByTag()">
+<div class="panel panel-default" ng-init="getPostsByTag()">
   <div class="panel-heading">
     <h3 class="panel-title">Posts containing tag "{{val}}"</h3>
       <div class="btn-group">
@@ -14,13 +12,13 @@
           <!-- -->
           <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
             <!-- Sorting option based on date that posts were added -->
-            <li><a ng-click="sort_button('createdAt')" href="/#/posts/tag/{{val}}"><span class="glyphicon glyphicon-plus"></span>&nbsp;&nbsp;Added (default)</a></li>
-            <!-- Sorting options based on date that posts were updated -->
-            <li><a ng-click="sort_button('updatedAt')" href="/#/posts/tag/{{val}}"><span class="glyphicon glyphicon-time"></span>&nbsp;&nbsp;Updated</a></li>
-            <!-- Sorting options based on votes -->
-            <li><a ng-click="sort_button('votes')" href="/#/posts/tag/{{val}}"><span class="glyphicon glyphicon-hand-up"></span>&nbsp;&nbsp;Votes</a></li>
-            <!-- Sorting options based on trends -->
-            <li><a ng-click="sort_button('tends')" href="#/posts/tag/{{val}}"><span class="glyphicon glyphicon-flash"></span>&nbsp;&nbsp;Trending</a></li>
+            <li><a ng-click="myFilter = 'added'" href="/#/posts/tag/{{val}}"><span class="glyphicon glyphicon-plus"></span>&nbsp;&nbsp;Added (default)</a></li>
+            <!-- Sorting option based on date that posts were updated -->
+            <li><a ng-click="myFilter = 'updated'" href="/#/posts/tag/{{val}}"><span class="glyphicon glyphicon-time"></span>&nbsp;&nbsp;Updated</a></li>
+            <!-- Sorting option based on votes -->
+            <li><a ng-click="myFilter = 'votes'" href="/#/posts/tag/{{val}}"><span class="glyphicon glyphicon-hand-up"></span>&nbsp;&nbsp;Votes</a></li>
+            <!-- Sorting option based on trends -->
+            <li><a ng-click="myFilter = 'trending'" href="/#/posts/tag/{{val}}"><span class="glyphicon glyphicon-flash"></span>&nbsp;&nbsp;Trending</a></li>
           </ul>
         </div>
       </div>
@@ -29,17 +27,17 @@
     <!-- Case where there are no posts -->
     <p ng-show="posts.length == 0">There are no posts containing the requested tag.</p>
     <div class="row">
-      <!-- For each post in posts (for loop) change the order they are posted -->
-      <div ng-repeat="post in posts | orderBy: sort_property: sort_status">
+      <!-- For each post in posts (for loop), sort based on preferrence and display -->
+      <div ng-repeat="post in posts | sorting:myFilter">
         <div class="col-lg-12" style="margin-bottom: 20px">
           <!-- Title -->
           <h4 id="post_title"><a href="#/posts/details/{{post._id}}">{{post.title}}</a></h4>
-          <!-- Date status of post followed by date -->
-          <p id="dates"><mydate>{{post.date | date: 'medium'}}</mydate>&nbsp;
-          <!-- Created at glyphicon that appears when date status is set to 'Added' -->
-          <span ng-show="post.date_status == 'Added'" class="glyphicon glyphicon-plus"></span>
-          <!-- Updated at glyphicon that appears when date status is set to 'Updated' -->
-          <span ng-show="post.date_status == 'Updated'" class="glyphicon glyphicon-time"></span>
+          <!-- Date of post (either created or updated) -->
+          <p id="dates"><mydate>{{post.date_display | date: 'medium'}}</mydate>&nbsp;
+          <!-- Created at glyphicon that appears when date created equals date updated -->
+          <span ng-show="post.date_created == post.date_updated" class="glyphicon glyphicon-plus"></span>
+          <!-- Updated at glyphicon that appears when date created does not equal date updated -->
+          <span ng-show="post.date_created != post.date_updated" class="glyphicon glyphicon-time"></span>
           </p>
           <!-- Video URL glyphicon-->
           <p class="post_glyphicon" ng-show="post.video_url">&nbsp;<span class="glyphicon glyphicon-film"></span></p>

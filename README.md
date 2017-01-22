@@ -9,3 +9,12 @@ ShareSpace is an online web repository that allows students to share academic ma
 * _**Front-end:**_ AngularJS, HTML, CSS and Bootstrap
 * _**Back-end:**_ Node.js, Express Framework and JavaScript
 * _**Database:**_ MongoDB
+
+### How it works
+
+ShareSpace is an online web repository with one type of entity, students. All students must register in order to create an account. After registering, each student will be able to login by simply using their username and password. After the registration/login process, students will be directed to the main page where all the posts are located. It is important to mention that each student can share unlimited amount of posts and can view all posts from all users. The main functionalities of ShareSpace consist of:
+
+1. **Adding Material**
+2. **Receiving Material**
+3. **Searcbing Material**
+4. **Proving Feedback**
