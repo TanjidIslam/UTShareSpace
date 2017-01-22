@@ -30,16 +30,16 @@ var postSchema = mongoose.Schema({
 	tag_list:{
 		type: [String]
 	},
-	date:{
+	date_created:{
 		type: Date,
 	},
-	date_status:{
-		type: String,
-		default: "Added"
+	date_updated:{
+		type: Date,
+	},
+	date_display:{
+		type: Date
 	}
-// timestamps that add variables createdAt and updatedAt to database
-}, {timestamps: true}
-);
+});
 
 // Make Post object accessible from other files (module.exports) such as app.js
 var Post = module.exports = mongoose.model('Post', postSchema);
@@ -74,8 +74,18 @@ module.exports.updatePost = function(id, post, options, callback){
 		code: post.code,
 		votes: post.votes,
 		tag_list: post.tag_list,
-		date: post.date,
-		date_status: post.date_status
+		date_created: post.date_created,
+		date_updated: post.date_updated,
+		date_display: post.date_display
+	}
+	Post.findOneAndUpdate(query, update, options, callback);
+}
+
+// Update votes function (updateVotes) by post id
+module.exports.updateVotes = function(id, post, options, callback){
+	var query = {_id: id};
+	var update = {
+		votes: post.votes,
 	}
 	Post.findOneAndUpdate(query, update, options, callback);
 }

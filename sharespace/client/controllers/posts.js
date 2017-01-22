@@ -59,8 +59,14 @@ myApp.controller('PostsController', ['$scope', '$http', '$location', '$routePara
 	// Scope function that adds a post
 	$scope.addPost = function(){
 
-		// Assign date to date
-		$scope.post.date = Date.now();
+		// Assign date to date_created
+		$scope.post.date_created = Date.now();
+
+		// Assign date to date_updated
+		$scope.post.date_updated = Date.now();
+
+		// Assign date to date_display
+		$scope.post.date_display = Date.now();
 
 		// If tags exist
 		if ($scope.post.tag_list) {
@@ -139,7 +145,7 @@ myApp.controller('PostsController', ['$scope', '$http', '$location', '$routePara
 						// Check if we have uploaded all elements
 						if (element_counter == total_upload_list.length) {
 							// POST request to create a post containing all paths for both image(s) and file(s)
-							$http.post('/api/posts', $scope.post).success(function(response){window.location.href='#/posts'});
+							$http.post('/api/posts', $scope.post).success(function(response){window.location.href='/#/'});
 						}
 					});
 				} else {
@@ -152,14 +158,14 @@ myApp.controller('PostsController', ['$scope', '$http', '$location', '$routePara
 						// Check if we have uploaded all elements
 						if (element_counter == total_upload_list.length) {
 							// POST request to create a post containing all paths for both image(s) and file(s)
-							$http.post('/api/posts', $scope.post).success(function(response){window.location.href='#/posts'});
+							$http.post('/api/posts', $scope.post).success(function(response){window.location.href='/#/'});
 						}
 					});
 				}
 			}
 		// Case where there are no image(s) and file(s) to upload
 		} else {
-			$http.post('/api/posts', $scope.post).success(function(response){window.location.href='#/posts'});
+			$http.post('/api/posts', $scope.post).success(function(response){window.location.href='/#/'});
 		}
 	}
 
@@ -169,11 +175,11 @@ myApp.controller('PostsController', ['$scope', '$http', '$location', '$routePara
 		// Get id
 		var id = $routeParams.id;
 
-		// Update date to current date
-		$scope.post.date = Date.now();
+		// Update date to date_updated
+		$scope.post.date_updated = Date.now();
 
-		// Update date status
-		$scope.post.date_status = "Updated"
+		// Update date to date_display
+		$scope.post.date_display = Date.now();
 
 		// If tags exist
 		if ($scope.post.tag_list && typeof $scope.post.tag_list === "string") {
@@ -227,7 +233,9 @@ myApp.controller('PostsController', ['$scope', '$http', '$location', '$routePara
 
 		// PUT request to edit a post
 		// Second parameter is what we want to edit
-		$http.put('/api/posts/' + id, $scope.post).success(function(response){
+		$http.put('/api/posts/' + id + '/vote', $scope.post).success(function(response){
+
+			// Redirect
 			window.location.href='#/posts/details/' + id;
 		});
 	}
