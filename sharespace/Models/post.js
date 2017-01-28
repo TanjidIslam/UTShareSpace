@@ -21,6 +21,9 @@ var postSchema = mongoose.Schema({
 		type: Number,
 		default: 0
 	},
+	voting_timestamps:{
+		type: [String]
+	},
 	image_paths:{
 		type: [String]
 	},
@@ -106,6 +109,7 @@ module.exports.updateVotes = function(id, post, options, callback){
 	var query = {_id: id};
 	var update = {
 		votes: post.votes,
+		voting_timestamps: post.voting_timestamps
 	}
 	Post.findOneAndUpdate(query, update, options, callback);
 }
