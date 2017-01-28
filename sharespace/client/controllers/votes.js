@@ -34,6 +34,9 @@ myApp.controller('vote_button', ['$scope', function($scope){
 			// Set color of button to red
 			$scope.button_color = false;
 
+			// Add timestamp on vote
+			$scope.post.voting_timestamps.push(Date.now());
+
 		// Case where user DownVote's
 		} else {
 

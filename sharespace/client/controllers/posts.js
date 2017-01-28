@@ -136,34 +136,44 @@ myApp.controller('PostsController', ['$scope', '$http', '$location', '$routePara
 
 				// Check whether upload is an image or a file through the seperation_index variable
 				if (i < seperation_index) {
+
 					// POST request that uploads image
 					$http.post('/api/multer', fd, {transformRequest: angular.identity, headers: {'Content-Type': undefined}}).success(function(response){
+
 						// Get image path as response and push it to image paths
 						$scope.post.image_paths.push(response);
+
 						// Incremenet element counter by 1
 						element_counter = element_counter + 1;
+
 						// Check if we have uploaded all elements
 						if (element_counter == total_upload_list.length) {
+
 							// POST request to create a post containing all paths for both image(s) and file(s)
 							$http.post('/api/posts', $scope.post).success(function(response){window.location.href='/#/'});
 						}
 					});
 				} else {
+
 					// POST request that uploads file
 					$http.post('/api/multer', fd, {transformRequest: angular.identity, headers: {'Content-Type': undefined}}).success(function(response){
+
 						// Get file path as response and push it to file paths
 						$scope.post.file_paths.push(response);
+
 						// Incremenet element counter by 1
 						element_counter = element_counter + 1;
+
 						// Check if we have uploaded all elements
 						if (element_counter == total_upload_list.length) {
+
 							// POST request to create a post containing all paths for both image(s) and file(s)
 							$http.post('/api/posts', $scope.post).success(function(response){window.location.href='/#/'});
 						}
 					});
 				}
 			}
-		// Case where there are no image(s) and file(s) to upload
+		// Case where there are no image(s) or file(s) to upload
 		} else {
 			$http.post('/api/posts', $scope.post).success(function(response){window.location.href='/#/'});
 		}
@@ -205,9 +215,121 @@ myApp.controller('PostsController', ['$scope', '$http', '$location', '$routePara
         	});
 		}
 
-		// PUT request to edit a post
-		// Second parameter is what we want to edit
-		$http.put('/api/posts/' + id, $scope.post).success(function(response){
+		// Case where there are image(s) and file(s) to upload
+		if ($scope.myImage || $scope.myFile){
+
+			// Define total element list
+			var total_upload_list = [];
+
+			// Case where there are image(s)
+			if ($scope.myImage) {
+				// Add each image to total upload list
+				for (i = 0; i < $scope.myImage.length; i++) {
+					total_upload_list.push($scope.myImage[i]);
+				}
+			}
+
+			// Keep index track of images in order to know when file(s) begin
+			var seperation_index = total_upload_list.length;
+
+			// Case where there are file(s)
+			if ($scope.myFile) {
+				// Add each file to total upload list
+				for (i = 0; i < $scope.myFile.length; i++) {
+					total_upload_list.push($scope.myFile[i]);
+				}
+			}
+
+			// Define element counter that keeps track of when to stop uploading
+			var element_counter = 0;
+
+			// For each element in total upload list
+			for (i = 0; i < total_upload_list.length; i++) {
+
+				// Assign element, create data and append it
+				var file = total_upload_list[i]
+				var fd = new FormData;
+				fd.append('file', file);
+
+				// Check whether upload is an image or a file through the seperation_index variable
+				if (i < seperation_index) {
+
+					// POST request that uploads image
+					$http.post('/api/multer', fd, {transformRequest: angular.identity, headers: {'Content-Type': undefined}}).success(function(response){
+
+						// Get image path as response and push it to image paths
+						$scope.post.image_paths.push(response);
+
+						// Incremenet element counter by 1
+						element_counter = element_counter + 1;
+
+						// Check if we have uploaded all elements
+						if (element_counter == total_upload_list.length) {
+
+							// PUT request to edit a post
+							// Second parameter is what we want to edit
+							$http.put('/api/posts/' + id, $scope.post).success(function(response){
+
+							// Declare empty string
+							var string_of_tags = "";
+
+							// Loop through list of tags and add to string
+							for (i = 0; i < response.tag_list.length; i++) {
+								string_of_tags += response.tag_list[i] + " ";
+							}
+
+							// Reassign tag list as a string of tags
+							$scope.post.tag_list = string_of_tags.slice(0, -1);
+
+							// Redirect
+							window.location.href='#/posts/details/' + id;
+
+							});
+						}
+					});
+				} else {
+
+					// POST request that uploads file
+					$http.post('/api/multer', fd, {transformRequest: angular.identity, headers: {'Content-Type': undefined}}).success(function(response){
+
+						// Get file path as response and push it to file paths
+						$scope.post.file_paths.push(response);
+
+						// Incremenet element counter by 1
+						element_counter = element_counter + 1;
+
+						// Check if we have uploaded all elements
+						if (element_counter == total_upload_list.length) {
+
+							// PUT request to edit a post
+							// Second parameter is what we want to edit
+							$http.put('/api/posts/' + id, $scope.post).success(function(response){
+
+							// Declare empty string
+							var string_of_tags = "";
+
+							// Loop through list of tags and add to string
+							for (i = 0; i < response.tag_list.length; i++) {
+								string_of_tags += response.tag_list[i] + " ";
+							}
+
+							// Reassign tag list as a string of tags
+							$scope.post.tag_list = string_of_tags.slice(0, -1);
+
+							// Redirect
+							window.location.href='#/posts/details/' + id;
+
+							});
+						}
+					});
+				}
+			}
+		// Case where there are no image(s) or file(s) to upload
+		} else {
+
+			// PUT request to edit a post
+			// Second parameter is what we want to edit
+			$http.put('/api/posts/' + id, $scope.post).success(function(response){
 
 			// Declare empty string
 			var string_of_tags = "";
@@ -222,7 +344,53 @@ myApp.controller('PostsController', ['$scope', '$http', '$location', '$routePara
 
 			// Redirect
 			window.location.href='#/posts/details/' + id;
-		});
+
+			});
+		}
+	}
+
+	// Scope function that removes single image
+	$scope.remove_single_image = function(path){
+
+		// Get id
+		var id = $routeParams.id;
+
+		// For each path in images
+		for (i = 0; i < $scope.post.image_paths.length; i++) {
+			// Case when path is found
+			if (path == $scope.post.image_paths[i]) {
+				// Remove path from images
+				$scope.post.image_paths.splice(i, 1);
+			}
+		}
+
+		// PUT request to edit images
+		$http.put('/api/posts/' + id + '/image_path', $scope.post).success(function(response){});
+
+		// PUT request that deletes images of the above paths
+		$http.put('/api/multer', [path], $scope.post).success(function(response){});
+	}
+
+	// Scope function that removes single file
+	$scope.remove_single_file = function(path){
+
+		// Get id
+		var id = $routeParams.id;
+
+		// For each path in files
+		for (i = 0; i < $scope.post.file_paths.length; i++) {
+			// Case when path is found
+			if (path == $scope.post.file_paths[i]) {
+				// Remove path from files
+				$scope.post.file_paths.splice(i, 1);
+			}
+		}
+
+		// PUT request to edit images
+		$http.put('/api/posts/' + id + '/file_path', $scope.post).success(function(response){});
+
+		// PUT request that deletes images of the above paths
+		$http.put('/api/multer', [path], $scope.post).success(function(response){});
 	}
 
 	// Scope function that updates votes
@@ -254,7 +422,7 @@ myApp.controller('PostsController', ['$scope', '$http', '$location', '$routePara
 			var paths = image_paths.concat(file_paths);
 
 			// PUT request that deletes images of the above paths
-			$http.put('/api/multer', paths).success(function(response){
+			$http.put('/api/multer', paths, $scope.post).success(function(response){
 
 				// DELETE request to delete a post
 				$http.delete('/api/posts/' + id).success(function(response){

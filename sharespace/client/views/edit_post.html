@@ -27,6 +27,34 @@
             <label>Code</label>
             <textarea rows="6" class="form-control" ng-model="post.code" placeholder="Code"/>
           </div>
+          <!-- Edit images -->
+          <label>Images</label>
+          <div style="margin-top: 10px; margin-bottom: 10px; text-align: left;">
+            <!-- For each image -->
+            <div id="display_images" ng-repeat="pic in post.image_paths">
+              <!-- Display image -->
+              <a id="image_hover" href="{{pic}}" target="_blank"><img id="images" ng-src="{{pic}}"></a>
+              <a href="" ng-click="remove_single_image(pic)"><span class="glyphicon glyphicon-remove"></span></a>
+            </div>
+          </div>
+          <!-- Add image(s) -->
+          <div class="form-group">
+            <input type="file" file-model="myImage" accept="image/*" multiple/>
+          </div>
+          <!-- Edit files -->
+          <label>Files</label>
+          <div style="margin-bottom: 10px; text-align: left;">
+            <!-- For each file -->
+            <div id="display_files" ng-repeat="file in post.file_paths">
+              <!-- Display file -->
+              {{file.substring(20)}}
+              <a href="" ng-click="remove_single_file(file)"><span class="glyphicon glyphicon-remove"></span></a>
+            </div>
+          </div>
+          <!-- Add file(s) -->
+          <div class="form-group">
+            <input type="file" file-model="myFile" accept=".pdf, .docx, .py" multiple/>
+          </div>
           <!-- Edit tag(s) -->
           <div class="form-group">
             <label>Tags <i style="font-weight:normal;">(space separated)</i></label>

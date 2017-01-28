@@ -21,6 +21,9 @@ var postSchema = mongoose.Schema({
 		type: Number,
 		default: 0
 	},
+	voting_timestamps:{
+		type: [String]
+	},
 	image_paths:{
 		type: [String]
 	},
@@ -73,10 +76,30 @@ module.exports.updatePost = function(id, post, options, callback){
 		video_url: post.video_url,
 		code: post.code,
 		votes: post.votes,
+		image_paths: post.image_paths,
+		file_paths: post.file_paths,
 		tag_list: post.tag_list,
 		date_created: post.date_created,
 		date_updated: post.date_updated,
 		date_display: post.date_display
+	}
+	Post.findOneAndUpdate(query, update, options, callback);
+}
+
+// Update image paths function (updateImagePaths) by post id
+module.exports.updateImagePaths = function(id, post, options, callback){
+	var query = {_id: id};
+	var update = {
+		image_paths: post.image_paths
+	}
+	Post.findOneAndUpdate(query, update, options, callback);
+}
+
+// Update file paths function (updateFilePaths) by post id
+module.exports.updateFilePaths = function(id, post, options, callback){
+	var query = {_id: id};
+	var update = {
+		file_paths: post.file_paths
 	}
 	Post.findOneAndUpdate(query, update, options, callback);
 }
@@ -86,6 +109,7 @@ module.exports.updateVotes = function(id, post, options, callback){
 	var query = {_id: id};
 	var update = {
 		votes: post.votes,
+		voting_timestamps: post.voting_timestamps
 	}
 	Post.findOneAndUpdate(query, update, options, callback);
 }
