@@ -119,12 +119,57 @@ myApp.filter('sorting', function() {
 			// Return sorted posts
 			return posts;
 
-		// Case where we want to sort posts based on trends
+		// Case where we want to sort posts based on trends (parallel sort and selection sort)
 		} else if (myFilter == "trending") {
 
-			// To be completed
-			console.log("To be completed");
+			// Define the list which will contain the amount of timpestamps of each post
+			var list_of_lists = [];
 
+			// Define timestamp limit (currently set to one hour)
+			var timestamp_limit = 3600000;
+
+			// For each post
+			for (i = 0; i < posts.length; i++) {
+
+				// Create a new list
+				var list = [];
+
+				// Push zero into that list
+				list.push(0);
+
+				// For each timestamp within post
+				for (j = 0; j < posts[i].voting_timestamps.length; j++) {
+
+					// Case where difference between current date and timestamp date is less than the timestamp limit
+					if ((Date.now() - posts[i].voting_timestamps[j]) < timestamp_limit) {
+
+						// Increment list by 1
+						list[0] = list[0] + 1
+					}
+				}
+
+				// Push current list into the master list of timestamps
+				list_of_lists.push(list);
+			}
+
+			// For each index of each post
+			for (var i = -1; ++i < posts.length;) {
+				for (var m = j = i; ++j < posts.length;) {
+
+					// If timestamps of previous post is leen than the post after
+					if (list_of_lists[m] < list_of_lists[j]) {
+						m = j;
+					}
+				}
+
+				// Swap posts
+      			var t = posts[m];
+      			posts[m] = posts[i];
+      			posts[i] = t;
+			}
+
+			// Return sorted posts
+			return posts;
 		}
 
 		// Default case (each time page is loaded)
