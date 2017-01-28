@@ -129,7 +129,7 @@ myApp.filter('sorting', function() {
 
 		// Default case (each time page is loaded)
 		// Case where posts or length of posts do not exist
-	    if (!posts && !posts.length) {
+	    if (!posts) {
 
 	    	// Return none
 	    	return;

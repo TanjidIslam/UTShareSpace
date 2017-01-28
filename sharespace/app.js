@@ -18,7 +18,7 @@ var storage = multer.diskStorage({
     },
     // Generate random number to assign images and files
     filename: function (req, file, cb) {
-        cb(null, (Math.floor(Math.random() * 1000) + 1) + file.originalname);
+        cb(null, (Math.floor(Math.random() * 100000000000) + 1) + file.originalname);
     }
 });
 
@@ -104,6 +104,40 @@ app.put('/api/posts/:_id', function(req, res){
 	var post = req.body;
 
 	Post.updatePost(id, post, {}, function(err, post){
+		if (err){
+			throw err;
+		}
+		res.json(post);
+	});
+});
+
+// Update image paths of existing post
+app.put('/api/posts/:_id/image_path', function(req, res){
+
+	// Get id
+	var id = req.params._id;
+
+	// Get post details through body parser
+	var post = req.body;
+
+	Post.updateImagePaths(id, post, {}, function(err, post){
+		if (err){
+			throw err;
+		}
+		res.json(post);
+	});
+});
+
+// Update file paths of existing post
+app.put('/api/posts/:_id/file_path', function(req, res){
+
+	// Get id
+	var id = req.params._id;
+
+	// Get post details through body parser
+	var post = req.body;
+
+	Post.updateFilePaths(id, post, {}, function(err, post){
 		if (err){
 			throw err;
 		}
