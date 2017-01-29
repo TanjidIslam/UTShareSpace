@@ -14,6 +14,11 @@ myApp.config(function($routeProvider){
 		controller: 'PostsController',
 		templateUrl: 'views/posts_by_tag.html'
 	})
+	// Getting all the posts by specified search
+	.when('/posts/search/:search', {
+		controller: 'PostsController',
+		templateUrl: 'views/posts_by_search.html'
+	})
 	// Getting specific post by id
 	.when('/posts/details/:id', {
 		controller: 'PostsController',

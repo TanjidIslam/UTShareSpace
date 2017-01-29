@@ -125,8 +125,8 @@ myApp.filter('sorting', function() {
 			// Define the list which will contain the amount of timpestamps of each post
 			var list_of_lists = [];
 
-			// Define timestamp limit (currently set to one hour)
-			var timestamp_limit = 3600000;
+			// Define timestamp limit (currently set to 24 hours)
+			var timestamp_limit = 86400000;
 
 			// For each post
 			for (i = 0; i < posts.length; i++) {

@@ -70,6 +70,22 @@ app.get('/api/posts/tag/:_val', function(req, res){
 	});
 });
 
+// Get all the posts by specified search
+app.get('/api/posts/search/:_search', function(req, res){
+
+	// Get search string
+	search_string = req.params._search;
+
+	// Convert it to a list of strings
+	search_list = search_string.split("_");
+	Post.getPostsBySearch(search_list, function(err, posts){
+		if (err){
+			throw err;
+		}
+		res.json(posts);
+	});
+});
+
 // Get specific post by its id
 app.get('/api/posts/:_id', function(req, res){
 	Post.getPostById(req.params._id, function(err, post){

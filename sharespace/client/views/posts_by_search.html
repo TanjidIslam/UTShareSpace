@@ -1,0 +1,66 @@
+<!-- ng-init directive tells the page which function to run instantly when the page opens-->
+<div class="panel panel-default" ng-init="getPostsBySearch()">
+  <div class="panel-heading">
+    <h3 class="panel-title">Search containing "{{search_string}}"</h3>
+      <div class="btn-group">
+        <!-- Dropdown that allows users to sort posts -->
+        <div class="dropdown">
+          <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+          Sort by
+          <span class="caret"></span>
+          </button>
+          <!-- -->
+          <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+            <!-- Sorting option based on date that posts were added -->
+            <li><a ng-click="myFilter = 'added'" href="/#/posts/search/{{search_string}}"><span class="glyphicon glyphicon-plus"></span>&nbsp;&nbsp;Added (default)</a></li>
+            <!-- Sorting option based on date that posts were updated -->
+            <li><a ng-click="myFilter = 'updated'" href="/#/posts/search/{{search_string}}"><span class="glyphicon glyphicon-time"></span>&nbsp;&nbsp;Updated</a></li>
+            <!-- Sorting option based on votes -->
+            <li><a ng-click="myFilter = 'votes'" href="/#/posts/search/{{search_string}}"><span class="glyphicon glyphicon-hand-up"></span>&nbsp;&nbsp;Votes</a></li>
+            <!-- Sorting option based on trends -->
+            <li><a ng-click="myFilter = 'trending'" href="/#/posts/search/{{search_string}}"><span class="glyphicon glyphicon-flash"></span>&nbsp;&nbsp;Trending</a></li>
+          </ul>
+        </div>
+      </div>
+  </div>
+  <div class="panel-body">
+    <!-- Case where there are no posts -->
+    <p ng-show="posts.length == 0">There are no posts containing the requested search.</p>
+    <div class="row">
+      <!-- For each post in posts (for loop), sort based on preferrence and display -->
+      <div ng-repeat="post in posts | sorting:myFilter">
+        <div class="col-lg-12" style="margin-bottom: 20px">
+          <!-- Title -->
+          <h4 id="post_title"><a href="#/posts/details/{{post._id}}">{{post.title}}</a></h4>
+          <!-- Date of post (either created or updated) -->
+          <p id="dates"><mydate>{{post.date_display | date: 'medium'}}</mydate>&nbsp;
+          <!-- Created at glyphicon that appears when date created equals date updated -->
+          <span ng-show="post.date_created == post.date_updated" class="glyphicon glyphicon-plus"></span>
+          <!-- Updated at glyphicon that appears when date created does not equal date updated -->
+          <span ng-show="post.date_created != post.date_updated" class="glyphicon glyphicon-time"></span>
+          </p>
+          <!-- Video URL glyphicon-->
+          <p class="post_glyphicon" ng-show="post.video_url">&nbsp;<span class="glyphicon glyphicon-film"></span></p>
+          <!-- Code glyphicon-->
+          <p class="post_glyphicon" ng-show="post.code">&nbsp;<span class="glyphicon glyphicon-console"></span></p>
+          <!-- Image glyphicon-->
+          <p class="post_glyphicon" ng-show="{{post.image_paths}}.length != 0">&nbsp;<span class="glyphicon glyphicon-picture"></span></p>
+          <!-- File glyphicon-->
+          <p class="post_glyphicon" ng-show="{{post.file_paths}}.length != 0">&nbsp;<span class="glyphicon glyphicon-file"></span></p>
+          <!-- Description -->
+          <div id="post_description">{{post.description}}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<style>
+@media screen and (max-width: 620px) {
+    div.btn-group {
+        margin-top: 33px;
+    }
+    div.panel-heading {
+      padding-bottom: 70px;
+    }
+}
+</style>

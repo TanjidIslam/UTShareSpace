@@ -149,6 +149,24 @@ ul.dropdown-menu > li > a:hover {
     text-overflow: ellipsis;
 }
 
+.navbar-default {
+    padding-bottom: 13px;
+}
+
+span.glyphicon.glyphicon-search {
+    padding-top: 3px;
+    padding-bottom: 3px;
+
+}
+
+#search_bar {
+    margin-top: 3px;
+}
+
+#search_button {
+    margin-top: 3px;
+}
+
 /* For smaller devices */
 @media screen and (max-width: 710px) {
 

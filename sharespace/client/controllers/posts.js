@@ -25,9 +25,68 @@ myApp.controller('PostsController', ['$scope', '$http', '$location', '$routePara
 
 		// GET request to get all the posts by specified tag
 		$http.get('/api/posts/tag/' + val).success(function(response){
-			// Response will be the posts by specified tag
+
+			// Assing to posts the response which will be the posts by specified tag
 			$scope.posts = response;
+
+			// Assign to value the specified tag value
 			$scope.val = val
+		});
+	}
+
+	$scope.getPostsBySearch = function(){
+
+		// Get search value
+		var search = $routeParams.search;
+
+		// Get search bar element
+		var search_bar_element = document.getElementById('search_bar');
+
+		// Set its value to null (empty string)
+		search_bar_element.value = "";
+
+		// Convert string of words into list of words
+		search = search.split(" ");
+
+		// For every element in the array
+		for (var i = search.length - 1; i >= 0; i--) {
+
+			// If there are any extra spaces
+			if (search === "") {
+
+				// Remove them from the array
+				search.splice(i, 1);
+			}
+		}
+
+		// Remove all duplicates from list of tags
+		search = search.filter( function(item, index, inputArray) {
+				return inputArray.indexOf(item) == index;
+        	});
+
+		// Define search string variable
+		var search_string = "";
+
+		// For each search element in the list
+		for (i = 0; i < search.length; i++) {
+			// Add it to the search string variable
+			search_string = search_string + search[i] + "_";
+		}
+
+		// Slice the last element of the search string variable
+		search_string = search_string.slice(0, -1);
+
+		// Assign search string to search
+		var search = search_string;
+
+		// GET request to get all the posts by specified search
+		$http.get('/api/posts/search/' + search).success(function(response){
+
+			// Assing to posts the response which will be the posts by specified search
+			$scope.posts = response;
+
+			// Assign to value the specified search
+			$scope.search_string = search_string;
 		});
 	}
 
@@ -75,10 +134,10 @@ myApp.controller('PostsController', ['$scope', '$http', '$location', '$routePara
 			$scope.post.tag_list = $scope.post.tag_list.split(" ");
 
 			// For every element in the array
-			for(var i = $scope.post.tag_list.length - 1; i >= 0; i--) {
+			for (var i = $scope.post.tag_list.length - 1; i >= 0; i--) {
 
 				// If there are any extra spaces
-				if($scope.post.tag_list[i] === "") {
+				if ($scope.post.tag_list[i] === "") {
 
 					// Remove them from the array
 					$scope.post.tag_list.splice(i, 1);

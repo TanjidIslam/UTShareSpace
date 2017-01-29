@@ -27,6 +27,12 @@
           <li><a id="header_link" href="/#/">Logout</a></li>
         </ul>
       </div>
+        <div class="input-group" ng-controller="PostsController">
+          <input id="search_bar" type="text" class="form-control" placeholder="Search for..." ng-model="search_text">
+          <span class="input-group-btn">
+            <a href="/#/posts/search/{{search_text}}" id="search_button" class="btn btn-default" type="button"><span class="glyphicon glyphicon-search"></span></a>
+          </span>
+        </div>
     </div>
   </nav>
   <div class="container">
