@@ -74,11 +74,15 @@ app.get('/api/posts/tag/:_val', function(req, res){
 app.get('/api/posts/search/:_search', function(req, res){
 
 	// Get search string
-	search_string = req.params._search;
+	search_string_with_ = req.params._search;
+
+	// Convert it to a string where "_" is replaced by " "
+	search_string_without_ = req.params._search.replace(/_/g, " ");
 
 	// Convert it to a list of strings
-	search_list = search_string.split("_");
-	Post.getPostsBySearch(search_list, function(err, posts){
+	search_list = search_string_with_.split("_");
+
+	Post.getPostsBySearch(search_list, search_string_without_, function(err, posts){
 		if (err){
 			throw err;
 		}

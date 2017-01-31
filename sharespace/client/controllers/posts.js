@@ -85,8 +85,8 @@ myApp.controller('PostsController', ['$scope', '$http', '$location', '$routePara
 			// Assing to posts the response which will be the posts by specified search
 			$scope.posts = response;
 
-			// Assign to value the specified search
-			$scope.search_string = search_string;
+			// Assign to value the specified search with replacing "_" witg " "
+			$scope.search_string = search_string.replace(/_/g, " ");
 		});
 	}
 
