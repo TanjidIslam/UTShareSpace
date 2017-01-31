@@ -58,8 +58,8 @@ module.exports.getPostsByTag = function(val, callback){
 }
 
 // Get posts function (getPostsBySearch) containing specified search
-module.exports.getPostsBySearch = function(search, callback){
-	Post.find({$or: [{title: {$all: search}}, {description: {$all: search}}, {code: {$all: search}}, {tag_list: {$all: search}}]}, callback);
+module.exports.getPostsBySearch = function(search_list, search_string, callback){
+	Post.find({$or: [{title: {$regex: search_string}}, {description: {$regex: search_string}}, {code: {$regex: search_string}}, {tag_list: {$all: search_list}}]}, callback);
 }
 
 // Get post function (getPostById) by its id
