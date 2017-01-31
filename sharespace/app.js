@@ -32,7 +32,7 @@ app.use(express.static(__dirname + '/client'));
 app.use(bodyParser.json());
 
 // post.js functionality assigned to Post
-Post = require('./models/post.js')
+Post = require('./Models/post.js')
 
 // Connect to Mongoose
 mongoose.connect('mongodb://localhost/sharespace');
