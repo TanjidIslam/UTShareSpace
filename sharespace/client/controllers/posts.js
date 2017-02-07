@@ -52,7 +52,7 @@ myApp.controller('PostsController', ['$scope', '$http', '$location', '$routePara
 		for (var i = search.length - 1; i >= 0; i--) {
 
 			// If there are any extra spaces
-			if (search === "") {
+			if (search[i] === "") {
 
 				// Remove them from the array
 				search.splice(i, 1);
