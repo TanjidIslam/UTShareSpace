@@ -1,5 +1,5 @@
 <!-- AngularJS initializer -->
-<html ng-app="myApp">
+<html ng-app="myApp" ng-controller="AppCtrl">
 <head>
 	<title>ShareSpace</title>
   <!-- Styling resources -->
@@ -40,7 +40,7 @@
     <div class="row">
     	<div class="col-md-12">
     		<!-- Angular directive to output all the views -->
-    		<div ng-view></div>
+    		<ui-view></ui-view>
     	</div>
     </div>
   </div>
@@ -51,8 +51,12 @@
   <script src="/bower_components/angular-route/angular-route.js"></script>
   <script src="/bower_components/angular-route/angular-route.js"></script>
   <script src="/bower_components/ng-videosharing-embed/build/ng-videosharing-embed.min.js"></script>
+  <script src="/bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
   <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
   <script src="/app.js"></script>
+  <script src="/constants.js"></script>
+  <script src="/controllers.js"></script>
+  <script src="/services.js"></script>
   <script src="/controllers/posts.js"></script>
   <script src="/controllers/votes.js"></script>
   <script src="/filters/sorts.js"></script>
