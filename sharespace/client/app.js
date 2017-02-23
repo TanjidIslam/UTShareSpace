@@ -1,7 +1,51 @@
+angular.module('myApp', ['ui.router', 'ngRoute', 'videosharing-embed'])
+ 
+.config(function($stateProvider, $urlRouterProvider) {
+
+	$stateProvider
+  	.state('outside', {
+  		abstract: true,
+    	url: '/outside',
+    	template: "<div ui-view></div>",
+    	templateUrl: 'views/outside.html'
+  	})
+  	.state('outside.login', {
+    	url: '/login',
+    	templateUrl: 'views/login.html',
+    	controller: 'LoginCtrl'
+  	})
+  	.state('outside.register', {
+    	url: '/register',
+    	templateUrl: 'views/register.html',
+    	controller: 'RegisterCtrl'
+  	})
+  	.state('inside', {
+    	url: '/inside',
+    	templateUrl: 'views/inside.html',
+    	controller: 'InsideCtrl'
+  	});
+
+  	$urlRouterProvider.otherwise('/outside/login');
+})
+
+
+.run(function($rootScope, $state, AuthService, AUTH_EVENTS) {
+  $rootScope.$on('$stateChangeStart', function(event,next, nextParams, fromState) {
+    if (!AuthService.isAuthenticated()) {
+      console.log(next.name);
+      if (next.name !== 'outside.login' && next.name !== 'outside.register') {
+        event.preventDefault();
+        $state.go('outside.login');
+      }
+    }
+  });
+});
+
+
 // Application object with angular route dependency ([] is mandatory)
 // ngRoute comes from the Angular Route file we installed
-var myApp = angular.module('myApp', ['ngRoute', 'videosharing-embed']);
 
+/**
 // Setting up all te routes
 myApp.config(function($routeProvider){
 	// Getting all the posts
@@ -39,3 +83,4 @@ myApp.config(function($routeProvider){
 		redirectTo: '/'
 	});
 });
+**/
