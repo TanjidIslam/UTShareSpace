@@ -3,8 +3,10 @@ var myApp = angular.module('myApp');
 
 // Angular directive that links files to our scope variable
 myApp.directive('fileModel', ['$parse', function($parse){
+
 	// Return directive object
 	return {
+
 		// Restrict to attribute
 		restrict: 'A',
 		link: function(scope, element, attrs){

@@ -1,0 +1,27 @@
+<!-- Welcome header -->
+<h1 id="login_text">Sharing material. Simply & effectively.</h1>
+<!-- Login form -->
+<form id="login_form" role="form">
+	<fieldset>
+		<!-- Username -->
+		<div id="login_username" class="form-group">
+			<input class="form-control" placeholder="Username" type="text" ng-model="user.username">
+		</div>
+		<!-- Password -->
+		<div id="login_password" class="form-group">
+			<input class="form-control" placeholder="Password" type="password" ng-model="user.password">
+		</div>
+		<!-- Login button -->
+		<input id="login_button" class="btn btn-warning btn-transparent" value="Login" ng-click="login()">
+	</fieldset>
+</form>
+
+<style>
+body {
+	background: url("./uploads/sharespace/login_background.jpg") no-repeat center center fixed; 
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+</style>
