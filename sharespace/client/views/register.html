@@ -1,13 +1,40 @@
-<div class="list">
-	<label class="item item-input">
-		<input type="text" placeholder="Name" ng-model="user.username">
-	</label>
-    <label class="item item-input">
-     	<input type="password" placeholder="Password" ng-model="user.password">
-    </label>
+<!-- Register container -->
+<div class="container">
+    <div class="row vertical-offset-100">
+        <div class="col-xs-8 col-sm-6 col-md-6 col-lg-5 col-xs-offset-2 col-sm-offset-3 col-md-offset-3 col-lg-offset-2.5">
+    		<div class="panel panel-default">
+    			<!-- Container heading -->
+			  	<div class="panel-heading">
+			    	<h3 class="panel-title">Please sign up!</h3>
+			 	</div>
+			  	<div class="panel-body">
+			  		<!-- Register form -->
+			    	<form role="form">
+			    		<fieldset>
+			    	  		<div class="form-group">
+			    		    	<input class="form-control" placeholder="Username" type="text" ng-model="user.username">
+			    			</div>
+			    			<div class="form-group">
+			    				<input class="form-control" placeholder="Password" type="password" ng-model="user.password">
+			    			</div>
+			    			<input class="btn btn-lg btn-success btn-block" value="Register" ng-click="signup()">
+			    		</fieldset>
+			      	</form>
+			    </div>
+			</div>
+		</div>
+	</div>
 </div>
 
-<button class="button button-full button-balanced" ng-click="signup()">
-	Sign Up
-</button>
+<style>
+{ margin: 0; padding: 0; }
+body {
+    background: url("./uploads/sharespace/register_background.jpg") no-repeat center center fixed; 
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
 
+
+}
+</style>

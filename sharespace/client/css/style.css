@@ -70,8 +70,14 @@ h3.panel-title {
 
 #header_link {
     color: #00cc44;
-    font-size: 18px;
+    font-size: 19px;
     font-weight: 450;
+}
+
+#header_link_sign_up {
+    font-size: 19px;
+    font-weight: 450;
+    margin-top: 7px;
 }
 
 #header_link:hover {
@@ -149,8 +155,15 @@ ul.dropdown-menu > li > a:hover {
     text-overflow: ellipsis;
 }
 
+.navbar-nav {
+    float:none;
+    margin:0 auto;
+    display: block;
+    text-align: center;
+}
+
 .navbar-default {
-    padding-bottom: 13px;
+    padding-bottom: 6px;
 }
 
 span.glyphicon.glyphicon-search {
@@ -160,11 +173,39 @@ span.glyphicon.glyphicon-search {
 }
 
 #search_bar {
-    margin-top: 3px;
+    margin-top: 1px;
 }
 
 #search_button {
-    margin-top: 3px;
+    margin-top: 1px;
+}
+
+#login_text {
+    font-weight: 400;
+    font-size: 40;
+    text-align: center;
+    color: #F8F8FF;
+}
+
+#login_username {
+    margin-left: 40px;
+    width: 250;
+}
+
+#login_password {
+    margin-left: 40px;
+    width: 250;
+}
+
+#login_button {
+    font-size: 17;
+    font-weight: 450;
+    width: 85;
+    margin-left: 40px;
+}
+
+#login_form {
+    margin-top: 50px;
 }
 
 /* For smaller devices */
