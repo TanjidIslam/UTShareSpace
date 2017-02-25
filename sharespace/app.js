@@ -307,7 +307,7 @@ app.get('/api/memberinfo', passport.authenticate('jwt', { session: false}), func
 
         	// Case where user exists
         	} else {
-          		res.json({success: true, msg: 'Welcome in the member area ' + user.username + '!'});
+          		res.json({success: true, user});
         	}
     	});
 

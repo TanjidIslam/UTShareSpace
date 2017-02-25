@@ -1,3 +1,4 @@
+// Application object with angular route dependency ([] is mandatory)
 angular.module('myApp', ['ui.router', 'ngRoute', 'videosharing-embed'])
  
 .config(function($stateProvider, $urlRouterProvider) {
@@ -19,20 +20,55 @@ angular.module('myApp', ['ui.router', 'ngRoute', 'videosharing-embed'])
     	templateUrl: 'views/register.html',
     	controller: 'RegisterCtrl'
   	})
+  	// Getting all posts
   	.state('inside', {
-    	url: '/inside',
-    	templateUrl: 'views/inside.html',
-    	controller: 'InsideCtrl'
-  	});
+    	url: '/home',
+    	templateUrl: 'views/posts.html',
+    	controller: 'PostsController'
+  	})
+  	// Getting all the posts by specified tag
+  	.state('posts_by_tag', {
+    	url: '/posts/tag/:val',
+    	templateUrl: 'views/posts_by_tag.html',
+    	controller: 'PostsController'
+  	})
+  	// Getting all the posts by specified search
+  	.state('posts_by_search', {
+    	url: '/posts/search/:search',
+    	templateUrl: 'views/posts_by_search.html',
+    	controller: 'PostsController'
+  	})
+   	// Getting specific post by id
+  	.state('post_details', {
+    	url: '/posts/details/:id',
+    	templateUrl: 'views/post_details.html',
+    	controller: 'PostsController'
+  	})
+  	// Adding a new post
+  	.state('add_post', {
+    	url: '/posts/add',
+    	templateUrl: 'views/add_post.html',
+    	controller: 'PostsController'
+    })
+  	// Editing a new post by id
+  	.state('edit_post', {
+    	url: '/posts/edit/:id',
+    	templateUrl: 'views/edit_post.html',
+    	controller: 'PostsController'
+    })
+    // Get the user's profile
+    .state('my_profile', {
+      url: '/my_profile',
+      templateUrl: 'views/my_profile.html',
+      controller: 'InsideCtrl'
+    });
 
   	$urlRouterProvider.otherwise('/outside/login');
 })
 
-
 .run(function($rootScope, $state, AuthService, AUTH_EVENTS) {
   $rootScope.$on('$stateChangeStart', function(event,next, nextParams, fromState) {
     if (!AuthService.isAuthenticated()) {
-      console.log(next.name);
       if (next.name !== 'outside.login' && next.name !== 'outside.register') {
         event.preventDefault();
         $state.go('outside.login');
@@ -40,47 +76,3 @@ angular.module('myApp', ['ui.router', 'ngRoute', 'videosharing-embed'])
     }
   });
 });
-
-
-// Application object with angular route dependency ([] is mandatory)
-// ngRoute comes from the Angular Route file we installed
-
-/**
-// Setting up all te routes
-myApp.config(function($routeProvider){
-	// Getting all the posts
-	$routeProvider.when('/', {
-		controller: 'PostsController',
-		templateUrl: 'views/posts.html'
-	})
-	// Getting all the posts by specified tag
-	.when('/posts/tag/:val', {
-		controller: 'PostsController',
-		templateUrl: 'views/posts_by_tag.html'
-	})
-	// Getting all the posts by specified search
-	.when('/posts/search/:search', {
-		controller: 'PostsController',
-		templateUrl: 'views/posts_by_search.html'
-	})
-	// Getting specific post by id
-	.when('/posts/details/:id', {
-		controller: 'PostsController',
-		templateUrl: 'views/post_details.html'
-	})
-	// Adding a new post
-	.when('/posts/add', {
-		controller: 'PostsController',
-		templateUrl: 'views/add_post.html'
-	})
-	// Editing a new post by id
-	.when('/posts/edit/:id', {
-		controller: 'PostsController',
-		templateUrl: 'views/edit_post.html'
-	})
-	// If none of the above, redirect to the home page
-	.otherwise({
-		redirectTo: '/'
-	});
-});
-**/
