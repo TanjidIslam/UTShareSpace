@@ -215,13 +215,16 @@ app.delete('/api/posts/:_id', function(req, res){
 app.post('/api/signup', function(req, res){
 
 	// If username or password is missing, return false
-	if (!req.body.username || !req.body.password) {
+	if (!req.body.first_name || !req.body.last_name || !req.body.username || !req.body.school || !req.body.password) {
 		res.json({success: false, msg: 'Please pass username and password.'})
 
 	// Otherwise, assign values passed to database
 	} else {
 		var newUser = new User({
+			first_name: req.body.first_name,
+			last_name: req.body.last_name,
 			username: req.body.username,
+			school: req.body.school,
 			password: req.body.password
 		});
 
