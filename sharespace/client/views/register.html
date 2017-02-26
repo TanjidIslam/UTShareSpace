@@ -9,15 +9,24 @@
 			 	</div>
 			  	<div class="panel-body">
 			  		<!-- Register form -->
-			    	<form role="form">
+			    	<form role="form" ng-submit="signup()">
 			    		<fieldset>
 			    	  		<div class="form-group">
-			    		    	<input class="form-control" placeholder="Username" type="text" ng-model="user.username">
+			    		    	<input class="form-control" placeholder="First Name" type="text" ng-model="user.first_name" required/>
+			    			</div>
+			    	  		<div class="form-group">
+			    		    	<input class="form-control" placeholder="Last Name" type="text" ng-model="user.last_name" required/>
+			    			</div>
+			    	  		<div class="form-group">
+			    		    	<input class="form-control" placeholder="Username" type="text" ng-model="user.username" required/>
+			    			</div>
+			    	  		<div class="form-group">
+			    		    	<input class="form-control" placeholder="School" type="text" ng-model="user.school" required/>
 			    			</div>
 			    			<div class="form-group">
-			    				<input class="form-control" placeholder="Password" type="password" ng-model="user.password">
+			    				<input class="form-control" placeholder="Password" type="password" ng-model="user.password" required/>
 			    			</div>
-			    			<input class="btn btn-lg btn-success btn-block" value="Register" ng-click="signup()">
+			    			<button type="submit" class="btn btn-lg btn-success btn-block">Register</button>
 			    		</fieldset>
 			      	</form>
 			    </div>
