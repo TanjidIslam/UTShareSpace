@@ -5,8 +5,8 @@ var myApp = angular.module('myApp');
 // 1. $scope is what binds controller to the view (pass things back and forth)
 // 2. $http module allows us to make API requests (GET - POST - PUT - DELETE)
 // 3. $location deals with redirection
-// 4. $routeParams allow us to get variables and values from forms
-myApp.controller('PostsController', ['$scope', '$http', '$location', '$routeParams', function($scope, $http, $location, $routeParams){
+// 4. $stateParams allow us to get variables and values from forms
+myApp.controller('PostsController', ['$scope', '$http', '$location', '$stateParams', function($scope, $http, $location, $stateParams){
 
 	// Scope function to get posts
 	$scope.getPosts = function(){
@@ -21,7 +21,7 @@ myApp.controller('PostsController', ['$scope', '$http', '$location', '$routePara
 	$scope.getPostsByTag = function(){
 
 		// Get tag value
-		var val = $routeParams.val;
+		var val = $stateParams.val;
 
 		// GET request to get all the posts by specified tag
 		$http.get('/api/posts/tag/' + val).success(function(response){
@@ -37,7 +37,7 @@ myApp.controller('PostsController', ['$scope', '$http', '$location', '$routePara
 	$scope.getPostsBySearch = function(){
 
 		// Get search value
-		var search = $routeParams.search;
+		var search = $stateParams.search;
 
 		// Get search bar element
 		var search_bar_element = document.getElementById('search_bar');
@@ -94,7 +94,7 @@ myApp.controller('PostsController', ['$scope', '$http', '$location', '$routePara
 	$scope.getPost = function(){
 
 		// Get id
-		var id = $routeParams.id;
+		var id = $stateParams.id;
 
 		// GET request that gets specific post by id
 		$http.get('/api/posts/' + id).success(function(response){
@@ -209,7 +209,7 @@ myApp.controller('PostsController', ['$scope', '$http', '$location', '$routePara
 						if (element_counter == total_upload_list.length) {
 
 							// POST request to create a post containing all paths for both image(s) and file(s)
-							$http.post('/api/posts', $scope.post).success(function(response){window.location.href='/#/'});
+							$http.post('/api/posts', $scope.post).success(function(response){window.location.href='/#/home'});
 						}
 					});
 				} else {
@@ -227,14 +227,14 @@ myApp.controller('PostsController', ['$scope', '$http', '$location', '$routePara
 						if (element_counter == total_upload_list.length) {
 
 							// POST request to create a post containing all paths for both image(s) and file(s)
-							$http.post('/api/posts', $scope.post).success(function(response){window.location.href='/#/'});
+							$http.post('/api/posts', $scope.post).success(function(response){window.location.href='/#/home'});
 						}
 					});
 				}
 			}
 		// Case where there are no image(s) or file(s) to upload
 		} else {
-			$http.post('/api/posts', $scope.post).success(function(response){window.location.href='/#/'});
+			$http.post('/api/posts', $scope.post).success(function(response){window.location.href='/#/home'});
 		}
 	}
 
@@ -242,7 +242,7 @@ myApp.controller('PostsController', ['$scope', '$http', '$location', '$routePara
 	$scope.updatePost = function(){
 
 		// Get id
-		var id = $routeParams.id;
+		var id = $stateParams.id;
 
 		// Update date to date_updated
 		$scope.post.date_updated = Date.now();
@@ -412,7 +412,7 @@ myApp.controller('PostsController', ['$scope', '$http', '$location', '$routePara
 	$scope.remove_single_image = function(path){
 
 		// Get id
-		var id = $routeParams.id;
+		var id = $stateParams.id;
 
 		// For each path in images
 		for (i = 0; i < $scope.post.image_paths.length; i++) {
@@ -434,7 +434,7 @@ myApp.controller('PostsController', ['$scope', '$http', '$location', '$routePara
 	$scope.remove_single_file = function(path){
 
 		// Get id
-		var id = $routeParams.id;
+		var id = $stateParams.id;
 
 		// For each path in files
 		for (i = 0; i < $scope.post.file_paths.length; i++) {
@@ -456,7 +456,7 @@ myApp.controller('PostsController', ['$scope', '$http', '$location', '$routePara
 	$scope.update_votes = function(){
 
 		// Get id
-		var id = $routeParams.id;
+		var id = $stateParams.id;
 
 		// PUT request to edit a post
 		// Second parameter is what we want to edit
@@ -487,7 +487,7 @@ myApp.controller('PostsController', ['$scope', '$http', '$location', '$routePara
 				$http.delete('/api/posts/' + id).success(function(response){
 
 					// Redirect
-					window.location.href='/#/';
+					window.location.href='/#/home';
 				});
 			});
 
@@ -495,7 +495,7 @@ myApp.controller('PostsController', ['$scope', '$http', '$location', '$routePara
 		} else {
 
 			// Redirect to post
-			window.location.href='#/posts/details/' + id;
+			window.location.href='/#/posts/details/' + id;
 		}
 	}
 }]);
