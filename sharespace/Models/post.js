@@ -1,7 +1,7 @@
-// Required module(s)
+// Require mongoose
 var mongoose = require('mongoose');
 
-// Post Schema
+// Posts Schema
 var postSchema = mongoose.Schema({
 	title:{
 		type: String,
