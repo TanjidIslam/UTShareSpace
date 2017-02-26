@@ -40,6 +40,12 @@ h3.panel-title {
 
 .panel-body {
     word-break: break-all;
+    padding-bottom: 0px;
+}
+
+#panel_user {
+    height: 175;
+    padding-top: 10px;
 }
 
 #upload_button_images {
@@ -206,6 +212,14 @@ span.glyphicon.glyphicon-search {
 
 #login_form {
     margin-top: 50px;
+}
+
+#first_row_1 {
+    border-top: 0px;
+}
+
+#first_row_2 {
+    border-top: 0px;
 }
 
 /* For smaller devices */
