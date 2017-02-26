@@ -1,22 +1,14 @@
-// Required module(s)
+// Module that will be required
 var express = require('express');
+
+// Object that represents express application
+var app = express();
+
+// Modules that will be required
 var bodyParser = require('body-parser');
-var morgan = require('morgan');
-var passport = require('passport');
 var mongoose = require('mongoose');
-var config = require('./config/database.js')
 var multer  = require('multer');
 var del = require('del');
-var jwt = require('jwt-simple');
-
-// post.js required functionality assigned to Post
-var Post = require('./Models/post.js')
-
-// user.js required functionality assigned to User
-var User = require('./Models/user.js')
-
-// Create bundle for API routes
-var app = express();
 
 // Define storage specifications for images and files
 var storage = multer.diskStorage({
@@ -37,20 +29,13 @@ var upload = multer({ storage: storage });
 app.use(express.static(__dirname + '/client'));
 
 // Middleware to initialize the bodyParser
-app.use(bodyParser.urlencoded({ extended: false}));
 app.use(bodyParser.json());
 
-// Middleware to initialize morgan
-app.use(morgan('dev'));
+// post.js functionality assigned to Post
+Post = require('./Models/post.js')
 
-// Middleware to initialize passport
-app.use(passport.initialize());
-
-// Connect to mongoose database
-mongoose.connect(config.database);
-
-// Pass our current passport to the passport configuration
-require('./config/passport.js')(passport);
+// Connect to Mongoose
+mongoose.connect('mongodb://localhost/sharespace');
 
 // Database object
 var db = mongoose.connection;
@@ -210,136 +195,6 @@ app.delete('/api/posts/:_id', function(req, res){
 		res.json(post);
 	});
 });
-
-// Signup new user
-app.post('/api/signup', function(req, res){
-
-	// If username or password is missing, return false
-	if (!req.body.username || !req.body.password) {
-		res.json({success: false, msg: 'Please pass username and password.'})
-
-	// Otherwise, assign values passed to database
-	} else {
-		var newUser = new User({
-			username: req.body.username,
-			password: req.body.password
-		});
-
-		// Call save function to encrypt password of new user
-		newUser.save(function(err) {
-
-			// Case where user already exists
-			if (err) {
-				res.json({success: false, msg: 'Username already exists.'})
-
-			// Case where user doesn't exist
-			} else {
-				res.json({success: true, msg: 'Succesfully created user.'})
-			}
-		});
-	}
-});
-
-// Authenticate already existing user
-app.post('/api/authenticate', function(req, res) {
-
-	// Try to find already existing user
-	User.findOne({
-
-		// Assign username to username
-		username: req.body.username
-  	}, function(err, user){
-
-  		// Case where there's an error
-    	if (err) throw err;
-
-    	// Case where user does not exist
-    	if (!user){
-      		res.send({success: false, msg: 'Authentication failed. User not found.'});
-
-      	// Case where user does exist
-    	} else {
-
-    		// Check if password entered matches the user's password
-      		user.comparePassword(req.body.password, function(err, isMatch){
-
-      			// Case where there is a match
-        		if (isMatch && !err) {
-          			
-          			// Create user token
-          			var token = jwt.encode(user, config.secret);
-          			
-          			// Return JWT token
-          			res.json({success: true, token: 'JWT ' + token});
-
-          		// Case where is not a match
-        		} else {
-          			res.send({success: false, msg: 'Authentication failed. Wrong password.'});
-        		}
-      		});
-    	}
-	});
-});
-
-// Get user's information
-app.get('/api/memberinfo', passport.authenticate('jwt', { session: false}), function(req, res){
-
-	// Get user's token using function getToken
-	var token = getToken(req.headers);
-
-	// Case where token was returned
-	if (token) {
-
-		// Decode JWT
-    	var decoded = jwt.decode(token, config.secret);
-
-    	// Find user ased on his username
-    	User.findOne({
-    		username: decoded.username
-    	}, function(err, user) {
-
-    		// Case where there is an error
-        	if (err) throw err;
-
-        	// Case where user does not exist
-        	if (!user) {
-        		return res.status(403).send({success: false, msg: 'Authentication failed. User not found.'});
-
-        	// Case where user exists
-        	} else {
-          		res.json({success: true, user});
-        	}
-    	});
-
-    // Case where token was not returned
-  	} else {
-    	return res.status(403).send({success: false, msg: 'No token provided.'});
-  	}
-});
-
-// Get token function (getToken) that get's users token
-getToken = function (headers) {
-
-	// If authorized headers exist
-	if (headers && headers.authorization) {
-
-		// Split token based on space
-    	var parted = headers.authorization.split(' ');
-
-    	// Case where index one exists
-    	if (parted.length === 2) {
-      		return parted[1];
-
-      	// Case where index one does not exist
-    	} else {
-    		return null;
-    	}
-
-    // If authorized headers does not exist
-  	} else {
-  		return null;
-  }
-};
 
 // Upload image(s) and file(s)
 app.post('/api/multer',  upload.any(), function(req, res){
