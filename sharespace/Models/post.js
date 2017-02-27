@@ -41,6 +41,9 @@ var postSchema = mongoose.Schema({
 	},
 	date_display:{
 		type: Date
+	},
+	user_created:{
+		type: String,
 	}
 });
 

@@ -1,10 +1,14 @@
 angular.module('myApp')
  
-.controller('InsideCtrl', function($scope, AuthService, API_ENDPOINT, $http, $state) {
+.controller('InsideCtrl', function($scope, $stateParams, AuthService, API_ENDPOINT, $http, $state) {
 
     $scope.getInfo = function() {
-        $http.get(API_ENDPOINT.url + '/memberinfo').then(function(result){
-            console.log(result)
+
+    	// Get username from parameters
+    	var username = $stateParams.username;
+
+    	// GET request that gets the user's information
+        $http.get('/api/' + 'username').then(function(result){
             $scope.user = result.data.user;
         });
     };

@@ -6,7 +6,7 @@ var myApp = angular.module('myApp');
 // 2. $http module allows us to make API requests (GET - POST - PUT - DELETE)
 // 3. $location deals with redirection
 // 4. $stateParams allow us to get variables and values from forms
-myApp.controller('PostsController', ['$scope', '$http', '$location', '$stateParams', function($scope, $http, $location, $stateParams){
+myApp.controller('PostsController', ['$scope', '$http', '$location', '$stateParams', 'AuthService', function($scope, $http, $location, $stateParams, AuthService){
 
 	// Scope function to get posts
 	$scope.getPosts = function(){
@@ -93,149 +93,163 @@ myApp.controller('PostsController', ['$scope', '$http', '$location', '$statePara
 	// Scope function to get specific post by id
 	$scope.getPost = function(){
 
-		// Get id
-		var id = $stateParams.id;
+		// GET request to get user's information
+		$http.get('/api/' + 'memberinfo').then(function(result){
 
-		// GET request that gets specific post by id
-		$http.get('/api/posts/' + id).success(function(response){
+			// Assign user information to user
+			$scope.user = result.data.user;
 
-			// Declare empty string
-			var string_of_tags = "";
+			// Get id
+			var id = $stateParams.id;
 
-			// Loop through list of tags and add to string
-			for (i = 0; i < response.tag_list.length; i++) {
-				string_of_tags += response.tag_list[i] + " ";
-			}
+			// GET request that gets specific post by id
+			$http.get('/api/posts/' + id).success(function(response){
 
-			// Reassign tag list as a string of tags
-			response.tag_list = string_of_tags.slice(0, -1);
+				// Declare empty string
+				var string_of_tags = "";
 
-			// Response will be the post
-			$scope.post = response;
+				// Loop through list of tags and add to string
+				for (i = 0; i < response.tag_list.length; i++) {
+					string_of_tags += response.tag_list[i] + " ";
+				}
+
+				// Reassign tag list as a string of tags
+				response.tag_list = string_of_tags.slice(0, -1);
+
+				// Response will be the post
+				$scope.post = response;
+			});
 		});
 	}
 
 	// Scope function that adds a post
 	$scope.addPost = function(){
 
-		// Assign date to date_created
-		$scope.post.date_created = Date.now();
+		// GET request to get user's information
+		$http.get('/api/' + 'memberinfo').then(function(result){
 
-		// Assign date to date_updated
-		$scope.post.date_updated = Date.now();
+			// Assign username to post creator
+			$scope.post.user_created = result.data.user.username;
 
-		// Assign date to date_display
-		$scope.post.date_display = Date.now();
+			// Assign date to date_created
+			$scope.post.date_created = Date.now();
 
-		// If tags exist
-		if ($scope.post.tag_list) {
+			// Assign date to date_updated
+			$scope.post.date_updated = Date.now();
 
-			// Convert string of tags into list of tags
-			$scope.post.tag_list = $scope.post.tag_list.split(" ");
+			// Assign date to date_display
+			$scope.post.date_display = Date.now();
 
-			// For every element in the array
-			for (var i = $scope.post.tag_list.length - 1; i >= 0; i--) {
+			// If tags exist
+			if ($scope.post.tag_list) {
 
-				// If there are any extra spaces
-				if ($scope.post.tag_list[i] === "") {
+					// Convert string of tags into list of tags
+				$scope.post.tag_list = $scope.post.tag_list.split(" ");
 
-					// Remove them from the array
-					$scope.post.tag_list.splice(i, 1);
+				// For every element in the array
+				for (var i = $scope.post.tag_list.length - 1; i >= 0; i--) {
 
+					// If there are any extra spaces
+					if ($scope.post.tag_list[i] === "") {
+
+						// Remove them from the array
+						$scope.post.tag_list.splice(i, 1);
+					}
 				}
+
+				// Remove all duplicates from list of tags
+				$scope.post.tag_list = $scope.post.tag_list.filter( function(item, index, inputArray) {
+					return inputArray.indexOf(item) == index;
+        		});
 			}
 
-			// Remove all duplicates from list of tags
-			$scope.post.tag_list = $scope.post.tag_list.filter( function(item, index, inputArray) {
-				return inputArray.indexOf(item) == index;
-        	});
-		}
+			// Define image paths
+			$scope.post.image_paths = [];
 
-		// Define image paths
-		$scope.post.image_paths = [];
+			// Define file paths
+			$scope.post.file_paths = [];
 
-		// Define file paths
-		$scope.post.file_paths = [];
+			// Case where there are image(s) and file(s) to upload
+			if ($scope.myImage || $scope.myFile){
 
-		// Case where there are image(s) and file(s) to upload
-		if ($scope.myImage || $scope.myFile){
+				// Define total element list
+				var total_upload_list = [];
 
-			// Define total element list
-			var total_upload_list = [];
-
-			// Case where there are image(s)
-			if ($scope.myImage) {
-				// Add each image to total upload list
-				for (i = 0; i < $scope.myImage.length; i++) {
-					total_upload_list.push($scope.myImage[i]);
+				// Case where there are image(s)
+				if ($scope.myImage) {
+					// Add each image to total upload list
+					for (i = 0; i < $scope.myImage.length; i++) {
+						total_upload_list.push($scope.myImage[i]);
+					}
 				}
-			}
 
-			// Keep index track of images in order to know when file(s) begin
-			var seperation_index = total_upload_list.length;
+				// Keep index track of images in order to know when file(s) begin
+				var seperation_index = total_upload_list.length;
 
-			// Case where there are file(s)
-			if ($scope.myFile) {
-				// Add each file to total upload list
-				for (i = 0; i < $scope.myFile.length; i++) {
-					total_upload_list.push($scope.myFile[i]);
+				// Case where there are file(s)
+				if ($scope.myFile) {
+
+					// Add each file to total upload list
+					for (i = 0; i < $scope.myFile.length; i++) {
+						total_upload_list.push($scope.myFile[i]);
+					}
 				}
-			}
 
-			// Define element counter that keeps track of when to stop uploading
-			var element_counter = 0;
+				// Define element counter that keeps track of when to stop uploading
+				var element_counter = 0;
 
-			// For each element in total upload list
-			for (i = 0; i < total_upload_list.length; i++) {
+				// For each element in total upload list
+				for (i = 0; i < total_upload_list.length; i++) {
 
-				// Assign element, create data and append it
-				var file = total_upload_list[i]
-				var fd = new FormData;
-				fd.append('file', file);
+					// Assign element, create data and append it
+					var file = total_upload_list[i]
+					var fd = new FormData;
+					fd.append('file', file);
 
-				// Check whether upload is an image or a file through the seperation_index variable
-				if (i < seperation_index) {
+					// Check whether upload is an image or a file through the seperation_index variable
+					if (i < seperation_index) {
 
-					// POST request that uploads image
-					$http.post('/api/multer', fd, {transformRequest: angular.identity, headers: {'Content-Type': undefined}}).success(function(response){
+						// POST request that uploads image
+						$http.post('/api/multer', fd, {transformRequest: angular.identity, headers: {'Content-Type': undefined}}).success(function(response){
 
-						// Get image path as response and push it to image paths
-						$scope.post.image_paths.push(response);
+							// Get image path as response and push it to image paths
+							$scope.post.image_paths.push(response);
 
-						// Incremenet element counter by 1
-						element_counter = element_counter + 1;
+							// Incremenet element counter by 1
+							element_counter = element_counter + 1;
 
-						// Check if we have uploaded all elements
-						if (element_counter == total_upload_list.length) {
+							// Check if we have uploaded all elements
+							if (element_counter == total_upload_list.length) {
 
-							// POST request to create a post containing all paths for both image(s) and file(s)
-							$http.post('/api/posts', $scope.post).success(function(response){window.location.href='/#/home'});
-						}
-					});
-				} else {
+								// POST request to create a post containing all paths for both image(s) and file(s)
+								$http.post('/api/posts', $scope.post).success(function(response){window.location.href='/#/home'});
+							}
+						});
+					} else {
 
-					// POST request that uploads file
-					$http.post('/api/multer', fd, {transformRequest: angular.identity, headers: {'Content-Type': undefined}}).success(function(response){
+						// POST request that uploads file
+						$http.post('/api/multer', fd, {transformRequest: angular.identity, headers: {'Content-Type': undefined}}).success(function(response){
 
-						// Get file path as response and push it to file paths
-						$scope.post.file_paths.push(response);
+							// Get file path as response and push it to file paths
+							$scope.post.file_paths.push(response);
 
-						// Incremenet element counter by 1
-						element_counter = element_counter + 1;
+							// Incremenet element counter by 1
+							element_counter = element_counter + 1;
 
-						// Check if we have uploaded all elements
-						if (element_counter == total_upload_list.length) {
+							// Check if we have uploaded all elements
+							if (element_counter == total_upload_list.length) {
 
-							// POST request to create a post containing all paths for both image(s) and file(s)
-							$http.post('/api/posts', $scope.post).success(function(response){window.location.href='/#/home'});
-						}
-					});
+								// POST request to create a post containing all paths for both image(s) and file(s)
+								$http.post('/api/posts', $scope.post).success(function(response){window.location.href='/#/home'});
+							}
+						});
+					}
 				}
+			// Case where there are no image(s) or file(s) to upload
+			} else {
+				$http.post('/api/posts', $scope.post).success(function(response){window.location.href='/#/home'});
 			}
-		// Case where there are no image(s) or file(s) to upload
-		} else {
-			$http.post('/api/posts', $scope.post).success(function(response){window.location.href='/#/home'});
-		}
+		});
 	}
 
 	// Scope function that edits a post by id

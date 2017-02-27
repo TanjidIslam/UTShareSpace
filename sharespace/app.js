@@ -285,7 +285,7 @@ app.post('/api/authenticate', function(req, res) {
 });
 
 // Get user's information
-app.get('/api/memberinfo', passport.authenticate('jwt', { session: false}), function(req, res){
+app.get('/api/:_username', passport.authenticate('jwt', { session: false}), function(req, res){
 
 	// Get user's token using function getToken
 	var token = getToken(req.headers);
