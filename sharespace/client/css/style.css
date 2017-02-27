@@ -222,6 +222,10 @@ span.glyphicon.glyphicon-search {
     border-top: 0px;
 }
 
+#post_details {
+    padding-bottom: 15px;
+}
+
 /* For smaller devices */
 @media screen and (max-width: 710px) {
 

@@ -11,7 +11,7 @@ angular.module('myApp', ['ui.router', 'ngRoute', 'videosharing-embed'])
     	templateUrl: 'views/outside.html'
   	})
   	.state('outside.login', {
-    	url: '/login',
+        url: '/login',
     	templateUrl: 'views/login.html',
     	controller: 'LoginCtrl'
   	})
@@ -58,7 +58,7 @@ angular.module('myApp', ['ui.router', 'ngRoute', 'videosharing-embed'])
     })
     // Get the user's profile
     .state('my_profile', {
-      url: '/my_profile',
+      url: '/:username',
       templateUrl: 'views/my_profile.html',
       controller: 'InsideCtrl'
     });
@@ -66,8 +66,23 @@ angular.module('myApp', ['ui.router', 'ngRoute', 'videosharing-embed'])
   	$urlRouterProvider.otherwise('/outside/login');
 })
 
-.run(function($rootScope, $state, AuthService, AUTH_EVENTS) {
-  $rootScope.$on('$stateChangeStart', function(event,next, nextParams, fromState) {
+.run(function($http, $rootScope, $state, $stateParams, AuthService, AUTH_EVENTS) {
+    $rootScope.$on('$stateChangeStart', function(event, next, nextParams, fromState) {
+        if (AuthService.isAuthenticated()) {
+            if (next.name === 'edit_post') {
+                $http.get('/api/' + 'memberinfo').then(function(result){
+                    var id = $stateParams.id;
+                    $http.get('/api/posts/' + id).success(function(response){
+                    // Assign user information to user
+                        if (result.data.user.username != response.user_created) {
+                            event.preventDefault();
+                            $state.go('inside');
+                        }
+                    });
+                });
+            }
+        }
+    
     if (!AuthService.isAuthenticated()) {
       if (next.name !== 'outside.login' && next.name !== 'outside.register') {
         event.preventDefault();
