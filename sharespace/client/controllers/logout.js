@@ -14,6 +14,7 @@ angular.module('myApp')
     };
  
     $scope.logout = function(){
+        $scope.user = null;
         AuthService.logout();
         $state.go('outside.login');
     };

@@ -128,8 +128,17 @@ myApp.controller('PostsController', ['$scope', '$http', '$location', '$statePara
 		// GET request to get user's information
 		$http.get('/api/' + 'memberinfo').then(function(result){
 
+			// Get user's information
+			$scope.user = result.data.user;
+
+			// Get user's id
+			var id = $scope.user._id;
+
+			// Increment amount of posts by 1
+			$scope.user.amount_posts += 1;
+
 			// Assign username to post creator
-			$scope.post.user_created = result.data.user.username;
+			$scope.post.user_created = $scope.user.username;
 
 			// Assign date to date_created
 			$scope.post.date_created = Date.now();
@@ -221,6 +230,9 @@ myApp.controller('PostsController', ['$scope', '$http', '$location', '$statePara
 							// Check if we have uploaded all elements
 							if (element_counter == total_upload_list.length) {
 
+								// PUT request to update existing user's post information
+								$http.put('/api/users/posts/' + id, $scope.user).success(function(response){});
+
 								// POST request to create a post containing all paths for both image(s) and file(s)
 								$http.post('/api/posts', $scope.post).success(function(response){window.location.href='/#/home'});
 							}
@@ -239,6 +251,9 @@ myApp.controller('PostsController', ['$scope', '$http', '$location', '$statePara
 							// Check if we have uploaded all elements
 							if (element_counter == total_upload_list.length) {
 
+								// PUT request to update existing user's post information
+								$http.put('/api/users/posts/' + id, $scope.user).success(function(response){});
+
 								// POST request to create a post containing all paths for both image(s) and file(s)
 								$http.post('/api/posts', $scope.post).success(function(response){window.location.href='/#/home'});
 							}
@@ -247,6 +262,11 @@ myApp.controller('PostsController', ['$scope', '$http', '$location', '$statePara
 				}
 			// Case where there are no image(s) or file(s) to upload
 			} else {
+
+				// PUT request to update existing user's post information
+				$http.put('/api/users/posts/' + id, $scope.user).success(function(response){});
+
+				// POST request to create a post without pats of image(s) or file(s)
 				$http.post('/api/posts', $scope.post).success(function(response){window.location.href='/#/home'});
 			}
 		});
@@ -491,17 +511,33 @@ myApp.controller('PostsController', ['$scope', '$http', '$location', '$statePara
 		// Case where they want to delete post
 		if (result) {
 
-			// Concatenate paths of images and files in one array
-			var paths = image_paths.concat(file_paths);
+			// GET request to get user's information
+			$http.get('/api/' + 'memberinfo').then(function(result){
 
-			// PUT request that deletes images of the above paths
-			$http.put('/api/multer', paths, $scope.post).success(function(response){
+				// Get user's information
+				$scope.user = result.data.user;
 
-				// DELETE request to delete a post
-				$http.delete('/api/posts/' + id).success(function(response){
+				// Get user's id
+				var id = $scope.user._id;
 
-					// Redirect
-					window.location.href='/#/home';
+				// Increment amount of posts by 1
+				$scope.user.amount_posts -= 1;
+
+				// Concatenate paths of images and files in one array
+				var paths = image_paths.concat(file_paths);
+
+				// PUT request to update existing user's post information
+				$http.put('/api/users/posts/' + id, $scope.user).success(function(response){});
+
+				// PUT request that deletes images of the above paths
+				$http.put('/api/multer', paths, $scope.post).success(function(response){
+
+					// DELETE request to delete a post
+					$http.delete('/api/posts/' + id).success(function(response){
+
+						// Redirect
+						window.location.href='/#/home';
+					});
 				});
 			});
 

@@ -30,7 +30,7 @@ var userSchema = mongoose.Schema({
 		default: 0
 	},
 	amount_votes:{
-		type: String,
+		type: Number,
 		default: 0
 	},
 	date_joined:{
@@ -89,3 +89,12 @@ userSchema.methods.comparePassword = function(passw, cb){
 
 // Make User object accessible from other files (module.exports) such as app.js
 var User = module.exports = mongoose.model('User', userSchema);
+
+// Update user function (updateUser) by its id
+module.exports.updateUser = function(id, user, options, callback){
+	var query = {_id: id};
+	var update = {
+		amount_posts: user.amount_posts
+	}
+	User.findOneAndUpdate(query, update, options, callback);
+}

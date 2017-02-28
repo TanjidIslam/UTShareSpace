@@ -7,7 +7,7 @@ angular.module('myApp')
         last_name: '',
         username: '',
         school: '',
-    	password: ''
+        password: ''
   	};
 
   	$scope.signup = function() {

@@ -243,6 +243,23 @@ app.post('/api/signup', function(req, res){
 	}
 });
 
+// Update existing user's post information
+app.put('/api/users/posts/:_id', function(req, res){
+
+	// Get id
+	var id = req.params._id;
+
+	// Get user details through body parser
+	var user = req.body;
+
+	User.updateUser(id, user, {}, function(err, post){
+		if (err){
+			throw err;
+		}
+		res.json(user);
+	});
+});
+
 // Authenticate already existing user
 app.post('/api/authenticate', function(req, res) {
 

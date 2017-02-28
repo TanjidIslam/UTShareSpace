@@ -58,7 +58,7 @@ angular.module('myApp', ['ui.router', 'ngRoute', 'videosharing-embed'])
     })
     // Get the user's profile
     .state('my_profile', {
-      url: '/:username',
+      url: '/my_profile',
       templateUrl: 'views/my_profile.html',
       controller: 'InsideCtrl'
     });
