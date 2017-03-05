@@ -90,11 +90,25 @@ userSchema.methods.comparePassword = function(passw, cb){
 // Make User object accessible from other files (module.exports) such as app.js
 var User = module.exports = mongoose.model('User', userSchema);
 
-// Update user function (updateUser) by its id
-module.exports.updateUser = function(id, user, options, callback){
+// Get user function (getUserById) by their id
+module.exports.getUserById = function(id, callback){
+	User.findById(id, callback);
+}
+
+// Update user posts function (update_user_posts) by its id
+module.exports.update_user_posts = function(id, user, options, callback){
 	var query = {_id: id};
 	var update = {
 		amount_posts: user.amount_posts
+	}
+	User.findOneAndUpdate(query, update, options, callback);
+}
+
+// Update user votes function (update_user_votes) by its id
+module.exports.update_user_votes = function(id, user, options, callback){
+	var query = {_id: id};
+	var update = {
+		amount_votes: user.amount_votes
 	}
 	User.findOneAndUpdate(query, update, options, callback);
 }

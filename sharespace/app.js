@@ -243,6 +243,33 @@ app.post('/api/signup', function(req, res){
 	}
 });
 
+// Get specific user by their id
+app.get('/api/users/:_id', function(req, res){
+	User.getUserById(req.params._id, function(err, post){
+		if (err){
+			throw err;
+		}
+		res.json(post);
+	});
+});
+
+// Update existing user's vote information
+app.put('/api/users/votes/:_id', function(req, res){
+
+	// Get id
+	var id = req.params._id;
+
+	// Get user details through body parser
+	var user = req.body;
+
+	User.update_user_votes(id, user, {}, function(err, user){
+		if (err){
+			throw err;
+		}
+		res.json(user);
+	});
+});
+
 // Update existing user's post information
 app.put('/api/users/posts/:_id', function(req, res){
 
@@ -252,7 +279,7 @@ app.put('/api/users/posts/:_id', function(req, res){
 	// Get user details through body parser
 	var user = req.body;
 
-	User.updateUser(id, user, {}, function(err, post){
+	User.update_user_posts(id, user, {}, function(err, user){
 		if (err){
 			throw err;
 		}

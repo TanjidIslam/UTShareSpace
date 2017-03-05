@@ -44,6 +44,10 @@ var postSchema = mongoose.Schema({
 	},
 	user_created:{
 		type: String,
+	},
+	users_voted:{
+		type: [String],
+		Default: []
 	}
 });
 
@@ -117,7 +121,8 @@ module.exports.updateVotes = function(id, post, options, callback){
 	var query = {_id: id};
 	var update = {
 		votes: post.votes,
-		voting_timestamps: post.voting_timestamps
+		voting_timestamps: post.voting_timestamps,
+		users_voted: post.users_voted
 	}
 	Post.findOneAndUpdate(query, update, options, callback);
 }

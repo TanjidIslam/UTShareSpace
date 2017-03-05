@@ -138,7 +138,7 @@ myApp.controller('PostsController', ['$scope', '$http', '$location', '$statePara
 			$scope.user.amount_posts += 1;
 
 			// Assign username to post creator
-			$scope.post.user_created = $scope.user.username;
+			$scope.post.user_created = $scope.user._id;
 
 			// Assign date to date_created
 			$scope.post.date_created = Date.now();
@@ -486,18 +486,137 @@ myApp.controller('PostsController', ['$scope', '$http', '$location', '$statePara
 		$http.put('/api/multer', [path], $scope.post).success(function(response){});
 	}
 
+	// Scope function that initializes vote button
+	$scope.initial_votes = function(){
+
+		// GET request to get user's information
+		$http.get('/api/' + 'memberinfo').then(function(result){
+
+			// Get user's information
+			$scope.user = result.data.user;
+
+			// Get user's id
+			var user_id = $scope.user._id;
+
+			// Get post's id
+			var post_id = $stateParams.id;
+
+			// GET request that gets specific post by id
+			$http.get('/api/posts/' + post_id).success(function(response){
+
+				// Get the users that have voted for this post
+				users_voted = response.users_voted;
+
+				// Case where user has not voted for this post
+				if (users_voted.indexOf(user_id) == -1){
+
+					// Set initial value of button to 'UpVote'
+					$scope.vote_status = 'UpVote';
+
+					// Set inital color of button to green
+					$scope.button_color = true;
+
+				// Case Where user has voted for this post
+				} else {
+
+					// Set initial value of button to 'DownVote'
+					$scope.vote_status = 'DownVote';
+
+					// Set inital color of button to red
+					$scope.button_color = false;
+				}
+			});
+		});
+	}
+
 	// Scope function that updates votes
 	$scope.update_votes = function(){
 
-		// Get id
-		var id = $stateParams.id;
+		// GET request to get user's information
+		$http.get('/api/' + 'memberinfo').then(function(result){
 
-		// PUT request to edit a post
-		// Second parameter is what we want to edit
-		$http.put('/api/posts/' + id + '/vote', $scope.post).success(function(response){
+			// Get user's information
+			$scope.user = result.data.user;
 
-			// Redirect
-			window.location.href='#/posts/details/' + id;
+			// Get user's id
+			var user_id = $scope.user._id;
+
+			// Get user created id
+			var user_created_id = $scope.post.user_created;
+
+			// Get post's id
+			var post_id = $stateParams.id;
+
+			// Case where user UpVote's
+			if ($scope.button_color == true) {
+
+				// Set value of button to 'DownVote'
+				$scope.vote_status = 'DownVote';
+
+				// Increment votes of post by 1
+				$scope.post.votes += 1;
+
+				// Set color of button to red
+				$scope.button_color = false;
+
+				// Push user id into users voted
+				$scope.post.users_voted.push(user_id);
+
+				// Add timestamp on vote
+				$scope.post.voting_timestamps.push(Date.now());
+
+				// GET request that gets specific user by id
+				$http.get('/api/users/' + user_created_id).success(function(response){
+
+					// Assign response to user that created post
+					$scope.user_created = response;
+
+					// Increase amount of votes by 1
+					$scope.user_created.amount_votes += 1;
+
+					// PUT request to edit a user
+					// Second parameter is what we want to edit
+					$http.put('/api/users/votes/' + user_created_id, $scope.user_created).success(function(response){});	
+				})
+
+			// Case where user DownVote's
+			} else {
+
+				// Set value of button to 'DownVote'
+				$scope.vote_status = 'UpVote';
+
+				// Reduce votes of post by 1
+				$scope.post.votes -= 1;
+
+				// Set color of button to green
+				$scope.button_color = true;
+
+				// Remove user id from users voted
+				$scope.post.users_voted.splice(user_id, 1);
+
+				// GET request that gets specific user by id
+				$http.get('/api/users/' + user_created_id).success(function(response){
+
+					// Assign response to user that created post
+					$scope.user_created = response;
+
+					// Increase amount of votes by 1
+					$scope.user_created.amount_votes -= 1;
+
+					// PUT request to edit a user
+					// Second parameter is what we want to edit
+					$http.put('/api/users/votes/' + user_created_id, $scope.user_created).success(function(response){});	
+				})
+
+			}
+
+			// PUT request to edit a post
+			// Second parameter is what we want to edit
+			$http.put('/api/posts/' + post_id + '/vote', $scope.post).success(function(response){
+
+				// Redirect
+				window.location.href='#/posts/details/' + post_id;
+			});
 		});
 	}
 
@@ -518,7 +637,10 @@ myApp.controller('PostsController', ['$scope', '$http', '$location', '$statePara
 				$scope.user = result.data.user;
 
 				// Get user's id
-				var id = $scope.user._id;
+				var user_id = $scope.user._id;
+
+				// Get post's id
+				var post_id = $stateParams.id;
 
 				// Increment amount of posts by 1
 				$scope.user.amount_posts -= 1;
@@ -527,13 +649,13 @@ myApp.controller('PostsController', ['$scope', '$http', '$location', '$statePara
 				var paths = image_paths.concat(file_paths);
 
 				// PUT request to update existing user's post information
-				$http.put('/api/users/posts/' + id, $scope.user).success(function(response){});
+				$http.put('/api/users/posts/' + user_id, $scope.user).success(function(response){});
 
 				// PUT request that deletes images of the above paths
 				$http.put('/api/multer', paths, $scope.post).success(function(response){
 
 					// DELETE request to delete a post
-					$http.delete('/api/posts/' + id).success(function(response){
+					$http.delete('/api/posts/' + post_id).success(function(response){
 
 						// Redirect
 						window.location.href='/#/home';
