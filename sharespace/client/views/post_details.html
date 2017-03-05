@@ -1,10 +1,10 @@
 &nbsp;
-<div ng-show="user.username == post.user_created" class="pull-right">
+<div ng-show="user._id == post.user_created" class="pull-right">
   <!-- Edit and Delete icon -->
 	<a href="#/posts/edit/{{post._id}}">Edit</a>&nbsp;<span class="glyphicon glyphicon-pencil"></span> &nbsp;|&nbsp; <a href="" ng-click="removePost(post._id, post.image_paths, post.file_paths)">Delete</a>&nbsp;<span class="glyphicon glyphicon-trash"></span>
 </div>
 <!-- ng-init directive tells the page which function to run instantly when the page opens -->
-<div class="panel panel-default" ng-init="getPost()" ng-controller="vote_button">
+<div class="panel panel-default" ng-init="getPost(); initial_votes()">
   <div class="panel-heading">
     <!-- Title and votes -->
   	<h3 class="panel-title">{{post.title}}</h3>
@@ -51,8 +51,8 @@
           </div>
         </div>
         <!-- Vote button -->
-        <div ng-show="user.username != post.user_created" style="margin-top: 30px;">
-          <button ng-class="{'btn-success': button_color, 'btn-danger': !button_color}" ng-click="click_btn(); update_votes()" type="button" class="btn center-block custom">{{vote_status}}</span></button>
+        <div ng-show="user._id != post.user_created" style="margin-top: 30px;">
+          <button ng-class="{'btn-success': button_color, 'btn-danger': !button_color}" ng-click="update_votes()" type="button" class="btn center-block custom">{{vote_status}}</span></button>
         </div>
       </div>
     </div>
