@@ -74,7 +74,7 @@ angular.module('myApp', ['ui.router', 'ngRoute', 'videosharing-embed'])
                     var id = $stateParams.id;
                     $http.get('/api/posts/' + id).success(function(response){
                     // Assign user information to user
-                        if (result.data.user.username != response.user_created) {
+                        if (result.data.user._id != response.user_created) {
                             event.preventDefault();
                             $state.go('inside');
                         }
