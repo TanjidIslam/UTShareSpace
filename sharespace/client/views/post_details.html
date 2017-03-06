@@ -1,7 +1,7 @@
 &nbsp;
-<div ng-show="user._id == post.user_created" class="pull-right">
+<div ng-show="user.username == post.user_created" class="pull-right">
   <!-- Edit and Delete icon -->
-	<a href="#/posts/edit/{{post._id}}">Edit</a>&nbsp;<span class="glyphicon glyphicon-pencil"></span> &nbsp;|&nbsp; <a href="" ng-click="removePost(post._id, post.image_paths, post.file_paths)">Delete</a>&nbsp;<span class="glyphicon glyphicon-trash"></span>
+	<a href="/#/posts/edit/{{post._id}}">Edit</a>&nbsp;<span class="glyphicon glyphicon-pencil"></span> &nbsp;|&nbsp; <a href="" ng-click="removePost(post._id, post.image_paths, post.file_paths)">Delete</a>&nbsp;<span class="glyphicon glyphicon-trash"></span>
 </div>
 <!-- ng-init directive tells the page which function to run instantly when the page opens -->
 <div class="panel panel-default" ng-init="getPost(); initial_votes()">
@@ -51,8 +51,11 @@
           </div>
         </div>
         <!-- Vote button -->
-        <div ng-show="user._id != post.user_created" style="margin-top: 30px;">
+        <div ng-show="user.username != post.user_created" style="margin-top: 20px;">
           <button ng-class="{'btn-success': button_color, 'btn-danger': !button_color}" ng-click="update_votes()" type="button" class="btn center-block custom">{{vote_status}}</span></button>
+        </div>
+        <div ng-show="user.username != post.user_created" style="text-align: right;">
+          Posted by <a href="/#/users/{{post.user_created}}">{{post.user_created}}</a>
         </div>
       </div>
     </div>
