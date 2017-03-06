@@ -61,6 +61,12 @@ angular.module('myApp', ['ui.router', 'ngRoute', 'videosharing-embed'])
       url: '/my_profile',
       templateUrl: 'views/my_profile.html',
       controller: 'InsideCtrl'
+    })
+    // Get other user's profile
+    .state('other_profile', {
+      url: '/users/:username',
+      templateUrl: 'views/other_profile.html',
+      controller: 'PostsController'
     });
 
   	$urlRouterProvider.otherwise('/outside/login');
@@ -74,7 +80,7 @@ angular.module('myApp', ['ui.router', 'ngRoute', 'videosharing-embed'])
                     var id = $stateParams.id;
                     $http.get('/api/posts/' + id).success(function(response){
                     // Assign user information to user
-                        if (result.data.user._id != response.user_created) {
+                        if (result.data.user.username != response.user_created) {
                             event.preventDefault();
                             $state.go('inside');
                         }
