@@ -138,7 +138,7 @@ myApp.controller('PostsController', ['$scope', '$http', '$location', '$statePara
 			$scope.user.amount_posts += 1;
 
 			// Assign username to post creator
-			$scope.post.user_created = $scope.user._id;
+			$scope.post.user_created = $scope.user.username;
 
 			// Assign date to date_created
 			$scope.post.date_created = Date.now();
@@ -542,7 +542,7 @@ myApp.controller('PostsController', ['$scope', '$http', '$location', '$statePara
 			var user_id = $scope.user._id;
 
 			// Get user created id
-			var user_created_id = $scope.post.user_created;
+			var user_created = $scope.post.user_created;
 
 			// Get post's id
 			var post_id = $stateParams.id;
@@ -565,18 +565,18 @@ myApp.controller('PostsController', ['$scope', '$http', '$location', '$statePara
 				// Add timestamp on vote
 				$scope.post.voting_timestamps.push(Date.now());
 
-				// GET request that gets specific user by id
-				$http.get('/api/users/' + user_created_id).success(function(response){
+				// GET request that gets specific user by username
+				$http.get('/api/users/' + user_created).success(function(response){
 
 					// Assign response to user that created post
-					$scope.user_created = response;
+					$scope.user_created = response[0];
 
 					// Increase amount of votes by 1
 					$scope.user_created.amount_votes += 1;
 
 					// PUT request to edit a user
 					// Second parameter is what we want to edit
-					$http.put('/api/users/votes/' + user_created_id, $scope.user_created).success(function(response){});	
+					$http.put('/api/users/votes/' + user_created, $scope.user_created).success(function(response){});	
 				})
 
 			// Case where user DownVote's
@@ -595,17 +595,17 @@ myApp.controller('PostsController', ['$scope', '$http', '$location', '$statePara
 				$scope.post.users_voted.splice(user_id, 1);
 
 				// GET request that gets specific user by id
-				$http.get('/api/users/' + user_created_id).success(function(response){
+				$http.get('/api/users/' + user_created).success(function(response){
 
 					// Assign response to user that created post
-					$scope.user_created = response;
+					$scope.user_created = response[0];
 
 					// Increase amount of votes by 1
 					$scope.user_created.amount_votes -= 1;
 
 					// PUT request to edit a user
 					// Second parameter is what we want to edit
-					$http.put('/api/users/votes/' + user_created_id, $scope.user_created).success(function(response){});	
+					$http.put('/api/users/votes/' + user_created, $scope.user_created).success(function(response){});	
 				})
 
 			}
@@ -618,6 +618,18 @@ myApp.controller('PostsController', ['$scope', '$http', '$location', '$statePara
 				window.location.href='#/posts/details/' + post_id;
 			});
 		});
+	}
+
+	// Scope function gets details of other user
+	$scope.get_other_user = function(){
+
+		// Get user's username
+		var username = $stateParams.username;
+
+		// GET request that gets specific user by id
+		$http.get('/api/users/' + username).success(function(response){
+			$scope.user = response[0];
+		})
 	}
 
 	// Scope function that deletes a post

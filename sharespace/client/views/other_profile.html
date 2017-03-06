@@ -1,0 +1,43 @@
+<div class="panel panel-default" ng-init="get_other_user()">
+    <div class="panel-heading">
+        <h3 class="panel-title">{{user.first_name}}&nbsp;{{user.last_name}}</h3>
+        <p id="votes">Joined {{user.date_joined | date: 'longDate'}}</span></p>
+    </div>
+    <div id="panel_user" class="panel-body">
+        <div class="row">
+            <div class="col-lg-12">
+                <table class="table table-user-information">
+                    <tbody>
+                        <tr>
+                            <td id="first_row_1">Username</td>
+                            <td id="first_row_2">{{user.username}}</td>
+                        </tr>
+                        <tr>
+                            <td>School</td>
+                            <td>{{user.school}}</td>
+                        </tr>
+                        <tr>
+                            <td>Posts</td>
+                            <td>{{user.amount_posts}}</td>
+                        </tr>
+                        <tr>
+                            <td>Votes</td>
+                            <td>{{user.amount_votes}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+@media screen and (max-width: 620px) {
+    #votes {
+        margin-top: 33px;
+    }
+
+    div.panel-heading {
+        padding-bottom: 70px;
+    }
+</style>
+

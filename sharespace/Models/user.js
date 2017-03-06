@@ -91,8 +91,8 @@ userSchema.methods.comparePassword = function(passw, cb){
 var User = module.exports = mongoose.model('User', userSchema);
 
 // Get user function (getUserById) by their id
-module.exports.getUserById = function(id, callback){
-	User.findById(id, callback);
+module.exports.getUserById = function(username, callback){
+	User.find({username}, callback);
 }
 
 // Update user posts function (update_user_posts) by its id
@@ -105,8 +105,8 @@ module.exports.update_user_posts = function(id, user, options, callback){
 }
 
 // Update user votes function (update_user_votes) by its id
-module.exports.update_user_votes = function(id, user, options, callback){
-	var query = {_id: id};
+module.exports.update_user_votes = function(username, user, options, callback){
+	var query = {username: username};
 	var update = {
 		amount_votes: user.amount_votes
 	}

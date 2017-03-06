@@ -23,7 +23,7 @@
         <ul class="nav navbar-nav navbar-right">
           <li ng-show="isAuthenticated()"><a id="header_link" href="/#/home">Home</a></li>
           <li ng-show="isAuthenticated()"><a id="header_link" href="/#/posts/add">Add post</a></li>
-          <li ng-show="isAuthenticated()"><a id="header_link" href="/#/my_profile">Profile</a></li>
+          <li ng-show="isAuthenticated()"><a id="header_link" href="/#/my_profile">My Profile</a></li>
           <li ng-show="isAuthenticated()"><a id="header_link" href="" ng-click="logout()">Logout</a></li>
           <li ng-show="!isAuthenticated()"><button id="header_link_sign_up" class="btn btn-success btn-transparent" ui-sref="outside.register">Sign Up</button></li>
         </ul>
