@@ -25,6 +25,10 @@ var userSchema = mongoose.Schema({
 		type: String,
 		required: true
 	},
+	posts_added:{
+		type: [String],
+		default: []
+	},
 	amount_posts:{
 		type: Number,
 		default: 0
