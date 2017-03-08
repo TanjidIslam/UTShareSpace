@@ -267,7 +267,10 @@ myApp.controller('PostsController', ['$scope', '$http', '$location', '$statePara
 				$http.put('/api/users/posts/' + id, $scope.user).success(function(response){});
 
 				// POST request to create a post without pats of image(s) or file(s)
-				$http.post('/api/posts', $scope.post).success(function(response){window.location.href='/#/home'});
+				$http.post('/api/posts', $scope.post).success(function(response){
+					console.log(response);
+					window.location.href='/#/home'
+				});
 			}
 		});
 	}
