@@ -166,6 +166,7 @@ ul.dropdown-menu > li > a:hover {
     margin:0 auto;
     display: block;
     text-align: center;
+    margin-top: 5px;
 }
 
 .navbar-default {
@@ -224,6 +225,15 @@ span.glyphicon.glyphicon-search {
 
 #post_details {
     padding-bottom: 15px;
+}
+
+#logo_icon {
+    padding-top: 0px;
+    padding-right: 4px;
+}
+
+#logo_text {
+    margin-top: 3px;
 }
 
 /* For smaller devices */
